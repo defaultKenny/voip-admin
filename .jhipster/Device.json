@@ -1,0 +1,107 @@
+{
+    "name": "Device",
+    "fields": [
+        {
+            "fieldName": "mac",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "inventory",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "hostname",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "webAccessLogin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "webAccessPassword",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dhcpEnabled",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "ipAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subnetMask",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "defaultGateway",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dns1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dns2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "provUrl",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "provProtocol",
+            "fieldType": "ProvProtocol",
+            "fieldValues": "FTP,TFTP,HTTP,HTTPS"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "sipAccount",
+            "otherEntityRelationshipName": "device",
+            "relationshipName": "sipAccount"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "deviceSetting",
+            "otherEntityRelationshipName": "device",
+            "relationshipName": "deviceSetting"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "deviceModel",
+            "otherEntityRelationshipName": "device",
+            "relationshipValidateRules": "required",
+            "relationshipName": "deviceModel",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "responsiblePerson",
+            "otherEntityRelationshipName": "device",
+            "relationshipName": "responsiblePerson",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200228121554",
+    "entityTableName": "device",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

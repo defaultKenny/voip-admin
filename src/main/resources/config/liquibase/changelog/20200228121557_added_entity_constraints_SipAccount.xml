@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity SipAccount.
+    -->
+    <changeSet id="20200228121557-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="pbx_account_id"
+                                 baseTableName="sip_account"
+                                 constraintName="fk_sip_account_pbx_account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pbx_account"/>
+
+        <addForeignKeyConstraint baseColumnNames="device_id"
+                                 baseTableName="sip_account"
+                                 constraintName="fk_sip_account_device_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="device"/>
+
+    </changeSet>
+</databaseChangeLog>

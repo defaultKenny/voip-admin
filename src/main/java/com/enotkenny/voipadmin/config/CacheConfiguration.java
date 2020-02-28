@@ -42,6 +42,22 @@ public class CacheConfiguration {
             createCache(cm, com.enotkenny.voipadmin.domain.User.class.getName());
             createCache(cm, com.enotkenny.voipadmin.domain.Authority.class.getName());
             createCache(cm, com.enotkenny.voipadmin.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.enotkenny.voipadmin.domain.Device.class.getName());
+            createCache(cm, com.enotkenny.voipadmin.domain.Device.class.getName() + ".sipAccounts");
+            createCache(cm, com.enotkenny.voipadmin.domain.Device.class.getName() + ".deviceSettings");
+            createCache(cm, com.enotkenny.voipadmin.domain.DeviceModel.class.getName());
+            createCache(cm, com.enotkenny.voipadmin.domain.DeviceModel.class.getName() + ".devices");
+            createCache(cm, com.enotkenny.voipadmin.domain.DeviceModel.class.getName() + ".additionalOptions");
+            createCache(cm, com.enotkenny.voipadmin.domain.DeviceType.class.getName());
+            createCache(cm, com.enotkenny.voipadmin.domain.DeviceType.class.getName() + ".deviceModels");
+            createCache(cm, com.enotkenny.voipadmin.domain.SipAccount.class.getName());
+            createCache(cm, com.enotkenny.voipadmin.domain.PbxAccount.class.getName());
+            createCache(cm, com.enotkenny.voipadmin.domain.ResponsiblePerson.class.getName());
+            createCache(cm, com.enotkenny.voipadmin.domain.ResponsiblePerson.class.getName() + ".devices");
+            createCache(cm, com.enotkenny.voipadmin.domain.AdditionalOption.class.getName());
+            createCache(cm, com.enotkenny.voipadmin.domain.AdditionalOption.class.getName() + ".deviceSettings");
+            createCache(cm, com.enotkenny.voipadmin.domain.AdditionalOption.class.getName() + ".deviceModels");
+            createCache(cm, com.enotkenny.voipadmin.domain.DeviceSetting.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

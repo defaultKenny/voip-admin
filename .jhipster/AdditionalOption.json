@@ -1,0 +1,42 @@
+{
+    "name": "AdditionalOption",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "deviceSetting",
+            "otherEntityRelationshipName": "additionalOption",
+            "relationshipName": "deviceSetting"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "deviceModel",
+            "otherEntityRelationshipName": "additionalOptions",
+            "relationshipName": "deviceModels",
+            "otherEntityField": "id",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200228121600",
+    "entityTableName": "additional_option",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

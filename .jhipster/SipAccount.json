@@ -1,0 +1,53 @@
+{
+    "name": "SipAccount",
+    "fields": [
+        {
+            "fieldName": "username",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lineEnabled",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "lineNumber",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "isManuallyCreated",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "pbxAccount",
+            "otherEntityRelationshipName": "sipAccount",
+            "relationshipName": "pbxAccount",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "device",
+            "otherEntityRelationshipName": "sipAccount",
+            "relationshipValidateRules": "required",
+            "relationshipName": "device",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200228121557",
+    "entityTableName": "sip_account",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

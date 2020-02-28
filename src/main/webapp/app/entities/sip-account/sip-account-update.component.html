@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-sip-account-heading" jhiTranslate="voipAdminApp.sipAccount.home.createOrEditLabel">Create or edit a Sip Account</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.username" for="field_username">Username</label>
+                    <input type="text" class="form-control" name="username" id="field_username"
+                           formControlName="username"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.password" for="field_password">Password</label>
+                    <input type="text" class="form-control" name="password" id="field_password"
+                           formControlName="password"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.lineEnabled" for="field_lineEnabled">Line Enabled</label>
+                    <input type="checkbox" class="form-control" name="lineEnabled" id="field_lineEnabled"
+                           formControlName="lineEnabled"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.lineNumber" for="field_lineNumber">Line Number</label>
+                    <input type="number" class="form-control" name="lineNumber" id="field_lineNumber"
+                           formControlName="lineNumber"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.isManuallyCreated" for="field_isManuallyCreated">Is Manually Created</label>
+                    <input type="checkbox" class="form-control" name="isManuallyCreated" id="field_isManuallyCreated"
+                           formControlName="isManuallyCreated"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.pbxAccount" for="field_pbxAccount">Pbx Account</label>
+                    <select class="form-control" id="field_pbxAccount" name="pbxAccount" formControlName="pbxAccountId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="pbxAccountOption.id" *ngFor="let pbxAccountOption of pbxaccounts; trackBy: trackPbxAccountById">{{pbxAccountOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.device" for="field_device">Device</label>
+                    <select class="form-control" id="field_device" name="device" formControlName="deviceId">
+                        <option *ngIf="!editForm.get('deviceId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="deviceOption.id" *ngFor="let deviceOption of devices; trackBy: trackDeviceById">{{deviceOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('deviceId').invalid && (editForm.get('deviceId').dirty || editForm.get('deviceId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('deviceId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

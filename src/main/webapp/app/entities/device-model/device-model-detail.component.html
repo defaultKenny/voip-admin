@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="deviceModel">
+            <h2><span jhiTranslate="voipAdminApp.deviceModel.detail.title">Device Model</span> {{deviceModel.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="voipAdminApp.deviceModel.name">Name</span></dt>
+                <dd>
+                    <span>{{deviceModel.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.deviceModel.isConfigurable">Is Configurable</span></dt>
+                <dd>
+                    <span>{{deviceModel.isConfigurable}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.deviceModel.linesCount">Lines Count</span></dt>
+                <dd>
+                    <span>{{deviceModel.linesCount}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.deviceModel.configFile">Config File</span></dt>
+                <dd>
+                    <div *ngIf="deviceModel.configFile">
+                        <a (click)="openFile(deviceModel.configFileContentType, deviceModel.configFile)" jhiTranslate="entity.action.open">open</a>
+                        {{deviceModel.configFileContentType}}, {{byteSize(deviceModel.configFile)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.deviceModel.firmwareFile">Firmware File</span></dt>
+                <dd>
+                    <div *ngIf="deviceModel.firmwareFile">
+                        <a (click)="openFile(deviceModel.firmwareFileContentType, deviceModel.firmwareFile)" jhiTranslate="entity.action.open">open</a>
+                        {{deviceModel.firmwareFileContentType}}, {{byteSize(deviceModel.firmwareFile)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.deviceModel.additionalOptions">Additional Options</span></dt>
+                <dd>
+                    <span *ngFor="let additionalOptions of deviceModel.additionalOptions; let last = last">
+                        <a [routerLink]="['/additional-option', additionalOptions?.id, 'view' ]">{{additionalOptions.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.deviceModel.deviceType">Device Type</span></dt>
+                <dd>
+                    <div *ngIf="deviceModel.deviceTypeId">
+                        <a [routerLink]="['/device-type', deviceModel.deviceTypeId, 'view']">{{deviceModel.deviceTypeName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/device-model', deviceModel.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

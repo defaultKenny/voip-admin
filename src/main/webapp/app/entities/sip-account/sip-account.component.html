@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="voipAdminApp.sipAccount.home.title">Sip Accounts</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-sip-account" [routerLink]="['/sip-account/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="voipAdminApp.sipAccount.home.createLabel">
+            Create a new Sip Account
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="sipAccounts?.length === 0">
+        <span jhiTranslate="voipAdminApp.sipAccount.home.notFound">No sipAccounts found</span>
+    </div>
+    <div class="table-responsive" *ngIf="sipAccounts?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="username"><span jhiTranslate="voipAdminApp.sipAccount.username">Username</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="password"><span jhiTranslate="voipAdminApp.sipAccount.password">Password</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="lineEnabled"><span jhiTranslate="voipAdminApp.sipAccount.lineEnabled">Line Enabled</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="lineNumber"><span jhiTranslate="voipAdminApp.sipAccount.lineNumber">Line Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isManuallyCreated"><span jhiTranslate="voipAdminApp.sipAccount.isManuallyCreated">Is Manually Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="pbxAccountId"><span jhiTranslate="voipAdminApp.sipAccount.pbxAccount">Pbx Account</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="deviceId"><span jhiTranslate="voipAdminApp.sipAccount.device">Device</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let sipAccount of sipAccounts ;trackBy: trackId">
+                <td><a [routerLink]="['/sip-account', sipAccount.id, 'view' ]">{{sipAccount.id}}</a></td>
+                <td>{{sipAccount.username}}</td>
+                <td>{{sipAccount.password}}</td>
+                <td>{{sipAccount.lineEnabled}}</td>
+                <td>{{sipAccount.lineNumber}}</td>
+                <td>{{sipAccount.isManuallyCreated}}</td>
+                <td>
+                    <div *ngIf="sipAccount.pbxAccountId">
+                        <a [routerLink]="['/pbx-account', sipAccount.pbxAccountId , 'view' ]" >{{sipAccount.pbxAccountId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="sipAccount.deviceId">
+                        <a [routerLink]="['/device', sipAccount.deviceId , 'view' ]" >{{sipAccount.deviceId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/sip-account', sipAccount.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/sip-account', sipAccount.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/sip-account', { outlets: { popup: sipAccount.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="sipAccounts?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

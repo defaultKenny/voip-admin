@@ -1,0 +1,29 @@
+{
+  "voipAdminApp": {
+    "responsiblePerson": {
+      "home": {
+        "title": "Responsible People",
+        "createLabel": "Create a new Responsible Person",
+        "createOrEditLabel": "Create or edit a Responsible Person",
+        "notFound": "No Responsible People found"
+      },
+      "created": "A new Responsible Person is created with identifier {{ param }}",
+      "updated": "A Responsible Person is updated with identifier {{ param }}",
+      "deleted": "A Responsible Person is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Responsible Person {{ id }}?"
+      },
+      "detail": {
+        "title": "Responsible Person"
+      },
+      "code": "Code",
+      "firstName": "First Name",
+      "middleName": "Middle Name",
+      "lastName": "Last Name",
+      "position": "Position",
+      "department": "Department",
+      "location": "Location",
+      "device": "Device"
+    }
+  }
+}

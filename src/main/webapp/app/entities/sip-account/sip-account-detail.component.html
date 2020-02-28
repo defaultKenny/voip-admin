@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="sipAccount">
+            <h2><span jhiTranslate="voipAdminApp.sipAccount.detail.title">Sip Account</span> {{sipAccount.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="voipAdminApp.sipAccount.username">Username</span></dt>
+                <dd>
+                    <span>{{sipAccount.username}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.sipAccount.password">Password</span></dt>
+                <dd>
+                    <span>{{sipAccount.password}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.sipAccount.lineEnabled">Line Enabled</span></dt>
+                <dd>
+                    <span>{{sipAccount.lineEnabled}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.sipAccount.lineNumber">Line Number</span></dt>
+                <dd>
+                    <span>{{sipAccount.lineNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.sipAccount.isManuallyCreated">Is Manually Created</span></dt>
+                <dd>
+                    <span>{{sipAccount.isManuallyCreated}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.sipAccount.pbxAccount">Pbx Account</span></dt>
+                <dd>
+                    <div *ngIf="sipAccount.pbxAccountId">
+                        <a [routerLink]="['/pbx-account', sipAccount.pbxAccountId, 'view']">{{sipAccount.pbxAccountId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.sipAccount.device">Device</span></dt>
+                <dd>
+                    <div *ngIf="sipAccount.deviceId">
+                        <a [routerLink]="['/device', sipAccount.deviceId, 'view']">{{sipAccount.deviceId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/sip-account', sipAccount.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

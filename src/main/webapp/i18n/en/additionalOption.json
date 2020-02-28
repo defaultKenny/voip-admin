@@ -1,0 +1,25 @@
+{
+  "voipAdminApp": {
+    "additionalOption": {
+      "home": {
+        "title": "Additional Options",
+        "createLabel": "Create a new Additional Option",
+        "createOrEditLabel": "Create or edit a Additional Option",
+        "notFound": "No Additional Options found"
+      },
+      "created": "A new Additional Option is created with identifier {{ param }}",
+      "updated": "A Additional Option is updated with identifier {{ param }}",
+      "deleted": "A Additional Option is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Additional Option {{ id }}?"
+      },
+      "detail": {
+        "title": "Additional Option"
+      },
+      "code": "Code",
+      "description": "Description",
+      "deviceSetting": "Device Setting",
+      "deviceModels": "Device Models"
+    }
+  }
+}

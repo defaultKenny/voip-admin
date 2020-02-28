@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="voipAdminApp.deviceModel.home.title">Device Models</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-device-model" [routerLink]="['/device-model/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="voipAdminApp.deviceModel.home.createLabel">
+            Create a new Device Model
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="deviceModels?.length === 0">
+        <span jhiTranslate="voipAdminApp.deviceModel.home.notFound">No deviceModels found</span>
+    </div>
+    <div class="table-responsive" *ngIf="deviceModels?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="name"><span jhiTranslate="voipAdminApp.deviceModel.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isConfigurable"><span jhiTranslate="voipAdminApp.deviceModel.isConfigurable">Is Configurable</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="linesCount"><span jhiTranslate="voipAdminApp.deviceModel.linesCount">Lines Count</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configFile"><span jhiTranslate="voipAdminApp.deviceModel.configFile">Config File</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="firmwareFile"><span jhiTranslate="voipAdminApp.deviceModel.firmwareFile">Firmware File</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="deviceTypeName"><span jhiTranslate="voipAdminApp.deviceModel.deviceType">Device Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let deviceModel of deviceModels ;trackBy: trackId">
+                <td><a [routerLink]="['/device-model', deviceModel.id, 'view' ]">{{deviceModel.id}}</a></td>
+                <td>{{deviceModel.name}}</td>
+                <td>{{deviceModel.isConfigurable}}</td>
+                <td>{{deviceModel.linesCount}}</td>
+                <td>
+                    <a *ngIf="deviceModel.configFile" (click)="openFile(deviceModel.configFileContentType, deviceModel.configFile)" jhiTranslate="entity.action.open">open</a>
+                    <span *ngIf="deviceModel.configFile">{{deviceModel.configFileContentType}}, {{byteSize(deviceModel.configFile)}}</span>
+                </td>
+                <td>
+                    <a *ngIf="deviceModel.firmwareFile" (click)="openFile(deviceModel.firmwareFileContentType, deviceModel.firmwareFile)" jhiTranslate="entity.action.open">open</a>
+                    <span *ngIf="deviceModel.firmwareFile">{{deviceModel.firmwareFileContentType}}, {{byteSize(deviceModel.firmwareFile)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="deviceModel.deviceTypeId">
+                        <a [routerLink]="['/device-type', deviceModel.deviceTypeId , 'view' ]" >{{deviceModel.deviceTypeName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/device-model', deviceModel.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/device-model', deviceModel.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/device-model', { outlets: { popup: deviceModel.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="deviceModels?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

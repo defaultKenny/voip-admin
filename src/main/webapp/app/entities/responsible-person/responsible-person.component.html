@@ -1,0 +1,78 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="voipAdminApp.responsiblePerson.home.title">Responsible People</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-responsible-person" [routerLink]="['/responsible-person/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="voipAdminApp.responsiblePerson.home.createLabel">
+            Create a new Responsible Person
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="responsiblePeople?.length === 0">
+        <span jhiTranslate="voipAdminApp.responsiblePerson.home.notFound">No responsiblePeople found</span>
+    </div>
+    <div class="table-responsive" *ngIf="responsiblePeople?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="code"><span jhiTranslate="voipAdminApp.responsiblePerson.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="firstName"><span jhiTranslate="voipAdminApp.responsiblePerson.firstName">First Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="middleName"><span jhiTranslate="voipAdminApp.responsiblePerson.middleName">Middle Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="lastName"><span jhiTranslate="voipAdminApp.responsiblePerson.lastName">Last Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="position"><span jhiTranslate="voipAdminApp.responsiblePerson.position">Position</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="department"><span jhiTranslate="voipAdminApp.responsiblePerson.department">Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="location"><span jhiTranslate="voipAdminApp.responsiblePerson.location">Location</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let responsiblePerson of responsiblePeople ;trackBy: trackId">
+                <td><a [routerLink]="['/responsible-person', responsiblePerson.id, 'view' ]">{{responsiblePerson.id}}</a></td>
+                <td>{{responsiblePerson.code}}</td>
+                <td>{{responsiblePerson.firstName}}</td>
+                <td>{{responsiblePerson.middleName}}</td>
+                <td>{{responsiblePerson.lastName}}</td>
+                <td>{{responsiblePerson.position}}</td>
+                <td>{{responsiblePerson.department}}</td>
+                <td>{{responsiblePerson.location}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/responsible-person', responsiblePerson.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/responsible-person', responsiblePerson.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/responsible-person', { outlets: { popup: responsiblePerson.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="responsiblePeople?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

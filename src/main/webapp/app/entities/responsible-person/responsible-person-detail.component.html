@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="responsiblePerson">
+            <h2><span jhiTranslate="voipAdminApp.responsiblePerson.detail.title">Responsible Person</span> {{responsiblePerson.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="voipAdminApp.responsiblePerson.code">Code</span></dt>
+                <dd>
+                    <span>{{responsiblePerson.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.responsiblePerson.firstName">First Name</span></dt>
+                <dd>
+                    <span>{{responsiblePerson.firstName}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.responsiblePerson.middleName">Middle Name</span></dt>
+                <dd>
+                    <span>{{responsiblePerson.middleName}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.responsiblePerson.lastName">Last Name</span></dt>
+                <dd>
+                    <span>{{responsiblePerson.lastName}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.responsiblePerson.position">Position</span></dt>
+                <dd>
+                    <span>{{responsiblePerson.position}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.responsiblePerson.department">Department</span></dt>
+                <dd>
+                    <span>{{responsiblePerson.department}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.responsiblePerson.location">Location</span></dt>
+                <dd>
+                    <span>{{responsiblePerson.location}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/responsible-person', responsiblePerson.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

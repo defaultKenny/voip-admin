@@ -1,0 +1,39 @@
+{
+  "voipAdminApp": {
+    "device": {
+      "home": {
+        "title": "Devices",
+        "createLabel": "Create a new Device",
+        "createOrEditLabel": "Create or edit a Device",
+        "notFound": "No Devices found"
+      },
+      "created": "A new Device is created with identifier {{ param }}",
+      "updated": "A Device is updated with identifier {{ param }}",
+      "deleted": "A Device is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Device {{ id }}?"
+      },
+      "detail": {
+        "title": "Device"
+      },
+      "mac": "Mac",
+      "inventory": "Inventory",
+      "location": "Location",
+      "hostname": "Hostname",
+      "webAccessLogin": "Web Access Login",
+      "webAccessPassword": "Web Access Password",
+      "dhcpEnabled": "Dhcp Enabled",
+      "ipAddress": "Ip Address",
+      "subnetMask": "Subnet Mask",
+      "defaultGateway": "Default Gateway",
+      "dns1": "Dns 1",
+      "dns2": "Dns 2",
+      "provUrl": "Prov Url",
+      "provProtocol": "Prov Protocol",
+      "sipAccount": "Sip Account",
+      "deviceSetting": "Device Setting",
+      "deviceModel": "Device Model",
+      "responsiblePerson": "Responsible Person"
+    }
+  }
+}

@@ -14,6 +14,18 @@
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121554_added_entity_Device.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121555_added_entity_DeviceModel.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121556_added_entity_DeviceType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121557_added_entity_SipAccount.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121558_added_entity_PbxAccount.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121559_added_entity_ResponsiblePerson.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121600_added_entity_AdditionalOption.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121601_added_entity_DeviceSetting.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20200228121554_added_entity_constraints_Device.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121555_added_entity_constraints_DeviceModel.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121557_added_entity_constraints_SipAccount.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200228121601_added_entity_constraints_DeviceSetting.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

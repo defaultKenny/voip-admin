@@ -1,0 +1,29 @@
+{
+  "voipAdminApp": {
+    "deviceModel": {
+      "home": {
+        "title": "Device Models",
+        "createLabel": "Создать новый Device Model",
+        "createOrEditLabel": "Создать или отредактировать Device Model",
+        "notFound": "No Device Models found"
+      },
+      "created": "Новый Device Model создан с идентификатором {{ param }}",
+      "updated": "Device Model обновлен с идентификатором {{ param }}",
+      "deleted": "Device Model удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Device Model {{ id }}?"
+      },
+      "detail": {
+        "title": "Device Model"
+      },
+      "name": "Name",
+      "isConfigurable": "Is Configurable",
+      "linesCount": "Lines Count",
+      "configFile": "Config File",
+      "firmwareFile": "Firmware File",
+      "device": "Device",
+      "additionalOptions": "Additional Options",
+      "deviceType": "Device Type"
+    }
+  }
+}

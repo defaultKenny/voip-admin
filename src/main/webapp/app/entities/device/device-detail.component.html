@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="device">
+            <h2><span jhiTranslate="voipAdminApp.device.detail.title">Device</span> {{device.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="voipAdminApp.device.mac">Mac</span></dt>
+                <dd>
+                    <span>{{device.mac}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.inventory">Inventory</span></dt>
+                <dd>
+                    <span>{{device.inventory}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.location">Location</span></dt>
+                <dd>
+                    <span>{{device.location}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.hostname">Hostname</span></dt>
+                <dd>
+                    <span>{{device.hostname}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.webAccessLogin">Web Access Login</span></dt>
+                <dd>
+                    <span>{{device.webAccessLogin}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.webAccessPassword">Web Access Password</span></dt>
+                <dd>
+                    <span>{{device.webAccessPassword}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.dhcpEnabled">Dhcp Enabled</span></dt>
+                <dd>
+                    <span>{{device.dhcpEnabled}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.ipAddress">Ip Address</span></dt>
+                <dd>
+                    <span>{{device.ipAddress}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.subnetMask">Subnet Mask</span></dt>
+                <dd>
+                    <span>{{device.subnetMask}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.defaultGateway">Default Gateway</span></dt>
+                <dd>
+                    <span>{{device.defaultGateway}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.dns1">Dns 1</span></dt>
+                <dd>
+                    <span>{{device.dns1}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.dns2">Dns 2</span></dt>
+                <dd>
+                    <span>{{device.dns2}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.provUrl">Prov Url</span></dt>
+                <dd>
+                    <span>{{device.provUrl}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.provProtocol">Prov Protocol</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'voipAdminApp.ProvProtocol.' + device.provProtocol}}">{{device.provProtocol}}</span>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.deviceModel">Device Model</span></dt>
+                <dd>
+                    <div *ngIf="device.deviceModelId">
+                        <a [routerLink]="['/device-model', device.deviceModelId, 'view']">{{device.deviceModelName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="voipAdminApp.device.responsiblePerson">Responsible Person</span></dt>
+                <dd>
+                    <div *ngIf="device.responsiblePersonId">
+                        <a [routerLink]="['/responsible-person', device.responsiblePersonId, 'view']">{{device.responsiblePersonId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/device', device.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

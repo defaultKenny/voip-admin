@@ -1,0 +1,30 @@
+{
+    "name": "DeviceType",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "deviceModel",
+            "otherEntityRelationshipName": "deviceType",
+            "relationshipName": "deviceModel"
+        }
+    ],
+    "changelogDate": "20200228121556",
+    "entityTableName": "device_type",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,37 @@
+{
+    "name": "DeviceSetting",
+    "fields": [
+        {
+            "fieldName": "value",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "device",
+            "otherEntityRelationshipName": "deviceSetting",
+            "relationshipValidateRules": "required",
+            "relationshipName": "device",
+            "otherEntityField": "mac"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "additionalOption",
+            "otherEntityRelationshipName": "deviceSetting",
+            "relationshipValidateRules": "required",
+            "relationshipName": "additionalOption",
+            "otherEntityField": "code"
+        }
+    ],
+    "changelogDate": "20200228121601",
+    "entityTableName": "device_setting",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

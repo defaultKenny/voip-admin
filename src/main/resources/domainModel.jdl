@@ -1,0 +1,104 @@
+enum ProvProtocol {
+	FTP,
+    TFTP,
+    HTTP,
+    HTTPS
+}
+
+entity Device {
+	mac String required,
+    inventory String required,
+    location String,
+    hostname String,
+    webAccessLogin String,
+    webAccessPassword String,
+    dhcpEnabled Boolean,
+    ipAddress String,
+    subnetMask String,
+    defaultGateway String,
+    dns1 String,
+    dns2 String,
+    provUrl String,
+    provProtocol ProvProtocol
+}
+
+entity DeviceModel {
+	name String required,
+    isConfigurable Boolean,
+    linesCount Integer,
+    configFile Blob,
+    firmwareFile Blob
+}
+
+entity DeviceType {
+	name String required
+}
+
+entity SipAccount {
+	username String,
+    password String,
+    lineEnabled Boolean,
+    lineNumber Integer,
+    isManuallyCreated Boolean
+}
+
+entity PbxAccount {
+	username String,
+    pbxId String
+}
+
+entity ResponsiblePerson {
+	code String required,
+	firstName String,
+    middleName String,
+    lastName String required,
+    position String,
+    department String,
+    location String
+}
+
+entity AdditionalOption {
+    code String required,
+	description String
+}
+
+entity DeviceSetting {
+	value String
+}
+
+relationship OneToMany {
+	DeviceType to DeviceModel{deviceType(name) required}
+}
+
+relationship OneToMany {
+	DeviceModel to Device{deviceModel(name) required}
+}
+
+relationship OneToMany {
+	ResponsiblePerson to Device{responsiblePerson}
+}
+
+relationship OneToMany {
+	Device to SipAccount{device required}
+}
+
+relationship OneToOne {
+	SipAccount to PbxAccount
+}
+
+relationship OneToMany {
+	Device to DeviceSetting{device(mac) required}
+}
+
+relationship OneToMany {
+	AdditionalOption to DeviceSetting{additionalOption(code) required}
+}
+
+relationship ManyToMany {
+	DeviceModel{additionalOptions} to AdditionalOption{deviceModels}
+}
+
+service all with serviceClass
+dto all with mapstruct
+paginate all with pagination
+filter *

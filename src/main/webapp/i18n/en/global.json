@@ -7,6 +7,14 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "device": "Device",
+        "deviceModel": "Device Model",
+        "deviceType": "Device Type",
+        "sipAccount": "Sip Account",
+        "pbxAccount": "Pbx Account",
+        "responsiblePerson": "Responsible Person",
+        "additionalOption": "Additional Option",
+        "deviceSetting": "Device Setting",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

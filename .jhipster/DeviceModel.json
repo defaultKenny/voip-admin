@@ -1,0 +1,64 @@
+{
+    "name": "DeviceModel",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "isConfigurable",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "linesCount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "configFile",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "firmwareFile",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "device",
+            "otherEntityRelationshipName": "deviceModel",
+            "relationshipName": "device"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "additionalOption",
+            "otherEntityRelationshipName": "deviceModels",
+            "relationshipName": "additionalOptions",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "deviceType",
+            "otherEntityRelationshipName": "deviceModel",
+            "relationshipValidateRules": "required",
+            "relationshipName": "deviceType",
+            "otherEntityField": "name"
+        }
+    ],
+    "changelogDate": "20200228121555",
+    "entityTableName": "device_model",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

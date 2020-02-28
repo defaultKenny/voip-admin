@@ -1,0 +1,24 @@
+{
+  "voipAdminApp": {
+    "pbxAccount": {
+      "home": {
+        "title": "Pbx Accounts",
+        "createLabel": "Создать новый Pbx Account",
+        "createOrEditLabel": "Создать или отредактировать Pbx Account",
+        "notFound": "No Pbx Accounts found"
+      },
+      "created": "Новый Pbx Account создан с идентификатором {{ param }}",
+      "updated": "Pbx Account обновлен с идентификатором {{ param }}",
+      "deleted": "Pbx Account удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Pbx Account {{ id }}?"
+      },
+      "detail": {
+        "title": "Pbx Account"
+      },
+      "username": "Username",
+      "pbxId": "Pbx Id",
+      "sipAccount": "Sip Account"
+    }
+  }
+}
