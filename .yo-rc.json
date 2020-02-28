@@ -1,0 +1,42 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.enotkenny.voipadmin",
+      "nativeLanguage": "ru"
+    },
+    "jhipsterVersion": "6.5.0",
+    "applicationType": "monolith",
+    "baseName": "voipAdmin",
+    "packageName": "com.enotkenny.voipadmin",
+    "packageFolder": "com/enotkenny/voipadmin",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OGVjMGMzZDFmYmQ2MDk0MDQ2Y2YwODFkN2QzNGY3ODJhMzYyNmNhNTA3ZmJhYWYxNDJiNmQ5MTUxMzczMzVlMTBhY2NhODY1OGEyY2FhYTllMmU1ZGYzMDFjOTJiYjU3NWQxNjBiYTVlZTUxZWIxNjRmZTRhYWJhNTc0MjM2YzE=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "testFrameworks": ["protractor"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "ru",
+    "languages": ["ru", "en"],
+    "blueprints": []
+  }
+}
