@@ -6,6 +6,7 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDevice, Device } from 'app/shared/model/device.model';
 import { DeviceService } from './device.service';
 import { IDeviceModel } from 'app/shared/model/device-model.model';
@@ -56,6 +57,10 @@ export class DeviceUpdateComponent implements OnInit {
     return this.editForm.controls.settings as FormArray;
   }
 
+  set deviceSettingControls(value) {
+    this.editForm.controls.settings = value;
+  }
+
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected deviceService: DeviceService,
@@ -63,6 +68,7 @@ export class DeviceUpdateComponent implements OnInit {
     protected responsiblePersonService: ResponsiblePersonService,
     protected additionalOptionService: AdditionalOptionService,
     protected activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
     private fb: FormBuilder
   ) {}
 
@@ -83,12 +89,7 @@ export class DeviceUpdateComponent implements OnInit {
         (res: HttpResponse<IResponsiblePerson[]>) => (this.responsiblepeople = res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-    this.additionalOptionService
-      .query({ 'deviceModelId.in': this.editForm.get(['deviceModelId']).value })
-      .subscribe(
-        (res: HttpResponse<IAdditionalOption[]>) => (this.additionalOptions = res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    this.reloadModelOptions();
   }
 
   updateForm(device: IDevice) {
@@ -209,6 +210,7 @@ export class DeviceUpdateComponent implements OnInit {
   }
 
   private addDeviceSetting() {
+    console.log('here');
     this.deviceSettingControls.push(
       this.fb.group({
         settingId: [],
@@ -219,7 +221,47 @@ export class DeviceUpdateComponent implements OnInit {
   }
 
   private deleteDeviceSetting(index: number) {
-    console.log(index);
     this.deviceSettingControls.removeAt(index);
+  }
+
+  private reloadModelOptions() {
+    this.additionalOptionService
+      .query({ 'deviceModelsId.equals': this.editForm.get(['deviceModelId']).value })
+      .subscribe(
+        (res: HttpResponse<IAdditionalOption[]>) => (this.additionalOptions = res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+  }
+
+  private clearForeignSettings() {
+    let deviceModelOptions;
+    const deviceModelId = this.editForm.get(['deviceModelId']).value;
+    this.deviceModelService.find(deviceModelId).subscribe(
+      (res: HttpResponse<IDeviceModel[]>) => {
+        console.log(res);
+        deviceModelOptions = res.body.additionalOptions.map(option => option.id);
+
+        this.deviceSettingControls.controls = this.deviceSettingControls.controls.filter(control => {
+          if (deviceModelOptions.indexOf(control.value.settingOption) !== -1) {
+            return true;
+          }
+        });
+
+        console.log(this.deviceSettingControls);
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  private onDeviceModelChange(content, oldValue) {
+    this.modalService.open(content, {}).result.then(
+      result => {
+        this.clearForeignSettings();
+        this.reloadModelOptions();
+      },
+      reason => {
+        this.editForm.get(['deviceModelId']).setValue(oldValue);
+      }
+    );
   }
 }

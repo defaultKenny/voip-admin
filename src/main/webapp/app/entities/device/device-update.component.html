@@ -102,7 +102,7 @@
 
                             <div class="form-group">
                                 <label class="form-control-label" jhiTranslate="voipAdminApp.device.deviceModel" for="field_deviceModel">Device Model</label>
-                                <select class="form-control" id="field_deviceModel" name="deviceModel" formControlName="deviceModelId">
+                                <select class="form-control" id="field_deviceModel" name="deviceModel" formControlName="deviceModelId" (focus)="old = $event.target.value" (change)="onDeviceModelChange(content, old)">
                                     <option *ngIf="!editForm.get('deviceModelId').value" [ngValue]="null" selected></option>
                                     <option [ngValue]="deviceModelOption.id" *ngFor="let deviceModelOption of devicemodels; trackBy: trackDeviceModelById">{{deviceModelOption.name}}</option>
                                 </select>
@@ -122,6 +122,27 @@
                             </div>
                         </div>
                     </ng-template>
+
+                    <ng-template #content let-modal>
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title" jhiTranslate="voipAdminApp.device.changeModel.title">Change device model</h4>
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p jhiTranslate="voipAdminApp.device.changeModel.question">Are you sure you want to change model of this device?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.dismiss('Cross click')">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button id="jhi-confirm-delete-device" type="button" class="btn btn-danger">
+                                <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit" (click)="modal.close('Save click')">Edit</span>
+                            </button>
+                        </div>
+                    </ng-template>
+
                 </ngb-tab>
 
                 <ngb-tab title="Настройки линий">
@@ -163,7 +184,6 @@
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
-
 
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

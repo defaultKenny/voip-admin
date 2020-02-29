@@ -16,6 +16,10 @@
       "detail": {
         "title": "Device"
       },
+      "changeModel": {
+        "title": "Подтвердите изменение модели устройства",
+        "question": "Вы уверены, что хотите изменить модель устройства?"
+      },
       "mac": "Mac",
       "inventory": "Inventory",
       "location": "Location",
