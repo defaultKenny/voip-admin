@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <label jhiTranslate="voipAdminApp.deviceModel.additionalOptions" for="field_additionalOptions">Additional Options</label>
                     <select class="form-control" id="field_additionalOptions" multiple name="additionalOptions" formControlName="additionalOptions">
-                        <option [ngValue]="getSelected(editForm.get('additionalOptions').value, additionalOptionOption)" *ngFor="let additionalOptionOption of additionaloptions; trackBy: trackAdditionalOptionById">{{additionalOptionOption.id}}</option>
+                        <option [ngValue]="getSelected(editForm.get('additionalOptions').value, additionalOptionOption)" *ngFor="let additionalOptionOption of additionaloptions; trackBy: trackAdditionalOptionById">{{additionalOptionOption.code}} - {{additionalOptionOption.description}}</option>
                     </select>
                 </div>
                 <div class="form-group">

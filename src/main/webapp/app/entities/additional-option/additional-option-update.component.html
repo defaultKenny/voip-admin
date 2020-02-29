@@ -25,7 +25,12 @@
                     <input type="text" class="form-control" name="description" id="field_description"
                            formControlName="description"/>
                 </div>
-
+                <div class="form-group">
+                    <label jhiTranslate="voipAdminApp.additionalOption.deviceModels" for="field_deviceModels">Additional Options</label>
+                    <select class="form-control" id="field_deviceModels" multiple name="deviceModels" formControlName="deviceModels">
+                        <option [ngValue]="getSelected(editForm.get('deviceModels').value, deviceModelOption)" *ngFor="let deviceModelOption of deviceModels; trackBy: trackDeviceModelById">{{deviceModelOption.name}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

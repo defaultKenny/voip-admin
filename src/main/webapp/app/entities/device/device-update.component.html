@@ -140,9 +140,8 @@
 
                                         <div class="col-md-6">
                                             <select class="form-control" name="settingOption{{i}}" formControlName="settingOption">
-                                                <option [ngValue]="null"></option>
                                                 <option [ngValue]="addOption.id" *ngFor="let addOption of additionalOptions">
-                                                    {{ addOption.code }} ({{ addOption.description }}/{{ addOption.deviceModelName }})
+                                                    {{ addOption.code }} ({{ addOption.description }})
                                                 </option>
                                             </select>
                                         </div>

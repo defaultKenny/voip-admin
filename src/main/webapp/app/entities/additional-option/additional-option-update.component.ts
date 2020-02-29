@@ -18,12 +18,13 @@ import { DeviceModelService } from 'app/entities/device-model/device-model.servi
 export class AdditionalOptionUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  devicemodels: IDeviceModel[];
+  deviceModels: IDeviceModel[];
 
   editForm = this.fb.group({
     id: [],
     code: [null, [Validators.required]],
-    description: []
+    description: [],
+    deviceModels: []
   });
 
   constructor(
@@ -42,7 +43,7 @@ export class AdditionalOptionUpdateComponent implements OnInit {
     this.deviceModelService
       .query()
       .subscribe(
-        (res: HttpResponse<IDeviceModel[]>) => (this.devicemodels = res.body),
+        (res: HttpResponse<IDeviceModel[]>) => (this.deviceModels = res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -51,7 +52,8 @@ export class AdditionalOptionUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: additionalOption.id,
       code: additionalOption.code,
-      description: additionalOption.description
+      description: additionalOption.description,
+      deviceModels: additionalOption.deviceModels
     });
   }
 
@@ -74,7 +76,8 @@ export class AdditionalOptionUpdateComponent implements OnInit {
       ...new AdditionalOption(),
       id: this.editForm.get(['id']).value,
       code: this.editForm.get(['code']).value,
-      description: this.editForm.get(['description']).value
+      description: this.editForm.get(['description']).value,
+      deviceModels: this.editForm.get(['deviceModels']).value
     };
   }
 
