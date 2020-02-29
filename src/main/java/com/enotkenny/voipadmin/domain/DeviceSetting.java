@@ -1,5 +1,4 @@
 package com.enotkenny.voipadmin.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,13 +26,10 @@ public class DeviceSetting implements Serializable {
     private String value;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @NotNull
-    @JsonIgnoreProperties("deviceSettings")
     private Device device;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @NotNull
-    @JsonIgnoreProperties("deviceSettings")
     private AdditionalOption additionalOption;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

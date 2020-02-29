@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
@@ -12,9 +12,14 @@ import { IDeviceModel } from 'app/shared/model/device-model.model';
 import { DeviceModelService } from 'app/entities/device-model/device-model.service';
 import { IResponsiblePerson } from 'app/shared/model/responsible-person.model';
 import { ResponsiblePersonService } from 'app/entities/responsible-person/responsible-person.service';
+import { AdditionalOptionService } from 'app/entities/additional-option/additional-option.service';
+import { IAdditionalOption } from 'app/shared/model/additional-option.model';
+// import { DeviceSettingService } from 'app/entities/device-setting/device-setting.service';
+import { IDeviceSetting, DeviceSetting } from 'app/shared/model/device-setting.model';
 
 @Component({
   selector: 'jhi-device-update',
+  styleUrls: ['./device-update.component.scss'],
   templateUrl: './device-update.component.html'
 })
 export class DeviceUpdateComponent implements OnInit {
@@ -23,6 +28,8 @@ export class DeviceUpdateComponent implements OnInit {
   devicemodels: IDeviceModel[];
 
   responsiblepeople: IResponsiblePerson[];
+
+  additionalOptions: IAdditionalOption[];
 
   editForm = this.fb.group({
     id: [],
@@ -41,14 +48,20 @@ export class DeviceUpdateComponent implements OnInit {
     provUrl: [],
     provProtocol: [],
     deviceModelId: [null, Validators.required],
-    responsiblePersonId: []
+    responsiblePersonId: [],
+    settings: new FormArray([])
   });
+
+  get deviceSettingControls() {
+    return this.editForm.controls.settings as FormArray;
+  }
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected deviceService: DeviceService,
     protected deviceModelService: DeviceModelService,
     protected responsiblePersonService: ResponsiblePersonService,
+    protected additionalOptionService: AdditionalOptionService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -70,9 +83,16 @@ export class DeviceUpdateComponent implements OnInit {
         (res: HttpResponse<IResponsiblePerson[]>) => (this.responsiblepeople = res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+    this.additionalOptionService
+      .query({ 'deviceModelId.in': this.editForm.get(['deviceModelId']).value })
+      .subscribe(
+        (res: HttpResponse<IAdditionalOption[]>) => (this.additionalOptions = res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
   updateForm(device: IDevice) {
+    console.log(device);
     this.editForm.patchValue({
       id: device.id,
       mac: device.mac,
@@ -92,6 +112,20 @@ export class DeviceUpdateComponent implements OnInit {
       deviceModelId: device.deviceModelId,
       responsiblePersonId: device.responsiblePersonId
     });
+    this.updateDeviceSettingsForm(device);
+  }
+
+  private updateDeviceSettingsForm(device: IDevice) {
+    if (!!device && !!device.deviceSettingDTOs) {
+      for (let index = 0; index < device.deviceSettingDTOs.length; index++) {
+        this.addDeviceSetting();
+        this.deviceSettingControls.controls[index].patchValue({
+          settingId: device.deviceSettingDTOs[index].id,
+          settingOption: device.deviceSettingDTOs[index].additionalOptionId,
+          settingValue: device.deviceSettingDTOs[index].value
+        });
+      }
+    }
   }
 
   previousState() {
@@ -127,7 +161,26 @@ export class DeviceUpdateComponent implements OnInit {
       provUrl: this.editForm.get(['provUrl']).value,
       provProtocol: this.editForm.get(['provProtocol']).value,
       deviceModelId: this.editForm.get(['deviceModelId']).value,
-      responsiblePersonId: this.editForm.get(['responsiblePersonId']).value
+      responsiblePersonId: this.editForm.get(['responsiblePersonId']).value,
+      deviceSettingDTOs: this.createDeviceSettingsArrayFromForm()
+    };
+  }
+
+  private createDeviceSettingsArrayFromForm(): IDeviceSetting[] {
+    const result = [];
+    for (const group of this.deviceSettingControls.controls) {
+      result.push(this.createDeviceSettingFromForm(group));
+    }
+    return result;
+  }
+
+  private createDeviceSettingFromForm(group): IDeviceSetting {
+    return {
+      ...new DeviceSetting(),
+      id: group.get(['settingId']).value,
+      value: group.get(['settingValue']).value,
+      additionalOptionId: group.get(['settingOption']).value,
+      deviceId: this.editForm.get(['id']).value
     };
   }
 
@@ -153,5 +206,20 @@ export class DeviceUpdateComponent implements OnInit {
 
   trackResponsiblePersonById(index: number, item: IResponsiblePerson) {
     return item.id;
+  }
+
+  private addDeviceSetting() {
+    this.deviceSettingControls.push(
+      this.fb.group({
+        settingId: [],
+        settingOption: [],
+        settingValue: []
+      })
+    );
+  }
+
+  private deleteDeviceSetting(index: number) {
+    console.log(index);
+    this.deviceSettingControls.removeAt(index);
   }
 }

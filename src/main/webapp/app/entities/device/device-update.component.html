@@ -2,121 +2,170 @@
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-device-heading" jhiTranslate="voipAdminApp.device.home.createOrEditLabel">Create or edit a Device</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
-                        readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.mac" for="field_mac">Mac</label>
-                    <input type="text" class="form-control" name="mac" id="field_mac"
-                           formControlName="mac"/>
-                    <div *ngIf="editForm.get('mac').invalid && (editForm.get('mac').dirty || editForm.get('mac').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('mac').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.inventory" for="field_inventory">Inventory</label>
-                    <input type="text" class="form-control" name="inventory" id="field_inventory"
-                           formControlName="inventory"/>
-                    <div *ngIf="editForm.get('inventory').invalid && (editForm.get('inventory').dirty || editForm.get('inventory').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('inventory').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.location" for="field_location">Location</label>
-                    <input type="text" class="form-control" name="location" id="field_location"
-                           formControlName="location"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.hostname" for="field_hostname">Hostname</label>
-                    <input type="text" class="form-control" name="hostname" id="field_hostname"
-                           formControlName="hostname"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.webAccessLogin" for="field_webAccessLogin">Web Access Login</label>
-                    <input type="text" class="form-control" name="webAccessLogin" id="field_webAccessLogin"
-                           formControlName="webAccessLogin"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.webAccessPassword" for="field_webAccessPassword">Web Access Password</label>
-                    <input type="text" class="form-control" name="webAccessPassword" id="field_webAccessPassword"
-                           formControlName="webAccessPassword"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.dhcpEnabled" for="field_dhcpEnabled">Dhcp Enabled</label>
-                    <input type="checkbox" class="form-control" name="dhcpEnabled" id="field_dhcpEnabled"
-                           formControlName="dhcpEnabled"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.ipAddress" for="field_ipAddress">Ip Address</label>
-                    <input type="text" class="form-control" name="ipAddress" id="field_ipAddress"
-                           formControlName="ipAddress"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.subnetMask" for="field_subnetMask">Subnet Mask</label>
-                    <input type="text" class="form-control" name="subnetMask" id="field_subnetMask"
-                           formControlName="subnetMask"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.defaultGateway" for="field_defaultGateway">Default Gateway</label>
-                    <input type="text" class="form-control" name="defaultGateway" id="field_defaultGateway"
-                           formControlName="defaultGateway"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.dns1" for="field_dns1">Dns 1</label>
-                    <input type="text" class="form-control" name="dns1" id="field_dns1"
-                           formControlName="dns1"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.dns2" for="field_dns2">Dns 2</label>
-                    <input type="text" class="form-control" name="dns2" id="field_dns2"
-                           formControlName="dns2"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.provUrl" for="field_provUrl">Prov Url</label>
-                    <input type="text" class="form-control" name="provUrl" id="field_provUrl"
-                           formControlName="provUrl"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.provProtocol" for="field_provProtocol">Prov Protocol</label>
-                    <select class="form-control" name="provProtocol" formControlName="provProtocol" id="field_provProtocol">
-                        <option value="FTP">{{'voipAdminApp.ProvProtocol.FTP' | translate}}</option>
-                        <option value="TFTP">{{'voipAdminApp.ProvProtocol.TFTP' | translate}}</option>
-                        <option value="HTTP">{{'voipAdminApp.ProvProtocol.HTTP' | translate}}</option>
-                        <option value="HTTPS">{{'voipAdminApp.ProvProtocol.HTTPS' | translate}}</option>
-                    </select>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.deviceModel" for="field_deviceModel">Device Model</label>
-                    <select class="form-control" id="field_deviceModel" name="deviceModel" formControlName="deviceModelId">
-                        <option *ngIf="!editForm.get('deviceModelId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="deviceModelOption.id" *ngFor="let deviceModelOption of devicemodels; trackBy: trackDeviceModelById">{{deviceModelOption.name}}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('deviceModelId').invalid && (editForm.get('deviceModelId').dirty || editForm.get('deviceModelId').touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('deviceModelId').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.responsiblePerson" for="field_responsiblePerson">Responsible Person</label>
-                    <select class="form-control" id="field_responsiblePerson" name="responsiblePerson" formControlName="responsiblePersonId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="responsiblePersonOption.id" *ngFor="let responsiblePersonOption of responsiblepeople; trackBy: trackResponsiblePersonById">{{responsiblePersonOption.id}}</option>
-                    </select>
-                </div>
-            </div>
+            <ngb-tabset [destroyOnHide]="false">
+                <ngb-tab title="Общие настройки">
+                    <ng-template ngbTabContent>
+                        <div>
+                            <jhi-alert-error></jhi-alert-error>
+                            <div class="form-group" [hidden]="!editForm.get('id').value">
+                                <label for="id" jhiTranslate="global.field.id">ID</label>
+                                <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                                       readonly />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.mac" for="field_mac">Mac</label>
+                                <input type="text" class="form-control" name="mac" id="field_mac"
+                                       formControlName="mac"/>
+                                <div *ngIf="editForm.get('mac').invalid && (editForm.get('mac').dirty || editForm.get('mac').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('mac').errors.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.inventory" for="field_inventory">Inventory</label>
+                                <input type="text" class="form-control" name="inventory" id="field_inventory"
+                                       formControlName="inventory"/>
+                                <div *ngIf="editForm.get('inventory').invalid && (editForm.get('inventory').dirty || editForm.get('inventory').touched)">
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('inventory').errors.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.location" for="field_location">Location</label>
+                                <input type="text" class="form-control" name="location" id="field_location"
+                                       formControlName="location"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.hostname" for="field_hostname">Hostname</label>
+                                <input type="text" class="form-control" name="hostname" id="field_hostname"
+                                       formControlName="hostname"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.webAccessLogin" for="field_webAccessLogin">Web Access Login</label>
+                                <input type="text" class="form-control" name="webAccessLogin" id="field_webAccessLogin"
+                                       formControlName="webAccessLogin"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.webAccessPassword" for="field_webAccessPassword">Web Access Password</label>
+                                <input type="text" class="form-control" name="webAccessPassword" id="field_webAccessPassword"
+                                       formControlName="webAccessPassword"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.dhcpEnabled" for="field_dhcpEnabled">Dhcp Enabled</label>
+                                <input type="checkbox" class="form-control" name="dhcpEnabled" id="field_dhcpEnabled"
+                                       formControlName="dhcpEnabled"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.ipAddress" for="field_ipAddress">Ip Address</label>
+                                <input type="text" class="form-control" name="ipAddress" id="field_ipAddress"
+                                       formControlName="ipAddress"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.subnetMask" for="field_subnetMask">Subnet Mask</label>
+                                <input type="text" class="form-control" name="subnetMask" id="field_subnetMask"
+                                       formControlName="subnetMask"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.defaultGateway" for="field_defaultGateway">Default Gateway</label>
+                                <input type="text" class="form-control" name="defaultGateway" id="field_defaultGateway"
+                                       formControlName="defaultGateway"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.dns1" for="field_dns1">Dns 1</label>
+                                <input type="text" class="form-control" name="dns1" id="field_dns1"
+                                       formControlName="dns1"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.dns2" for="field_dns2">Dns 2</label>
+                                <input type="text" class="form-control" name="dns2" id="field_dns2"
+                                       formControlName="dns2"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.provUrl" for="field_provUrl">Prov Url</label>
+                                <input type="text" class="form-control" name="provUrl" id="field_provUrl"
+                                       formControlName="provUrl"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.provProtocol" for="field_provProtocol">Prov Protocol</label>
+                                <select class="form-control" name="provProtocol" formControlName="provProtocol" id="field_provProtocol">
+                                    <option value="FTP">{{'voipAdminApp.ProvProtocol.FTP' | translate}}</option>
+                                    <option value="TFTP">{{'voipAdminApp.ProvProtocol.TFTP' | translate}}</option>
+                                    <option value="HTTP">{{'voipAdminApp.ProvProtocol.HTTP' | translate}}</option>
+                                    <option value="HTTPS">{{'voipAdminApp.ProvProtocol.HTTPS' | translate}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.deviceModel" for="field_deviceModel">Device Model</label>
+                                <select class="form-control" id="field_deviceModel" name="deviceModel" formControlName="deviceModelId">
+                                    <option *ngIf="!editForm.get('deviceModelId').value" [ngValue]="null" selected></option>
+                                    <option [ngValue]="deviceModelOption.id" *ngFor="let deviceModelOption of devicemodels; trackBy: trackDeviceModelById">{{deviceModelOption.name}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="editForm.get('deviceModelId').invalid && (editForm.get('deviceModelId').dirty || editForm.get('deviceModelId').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('deviceModelId').errors.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.responsiblePerson" for="field_responsiblePerson">Responsible Person</label>
+                                <select class="form-control" id="field_responsiblePerson" name="responsiblePerson" formControlName="responsiblePersonId">
+                                    <option [ngValue]="null"></option>
+                                    <option [ngValue]="responsiblePersonOption.id" *ngFor="let responsiblePersonOption of responsiblepeople; trackBy: trackResponsiblePersonById">{{responsiblePersonOption.id}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+
+                <ngb-tab title="Настройки линий">
+                    <ng-template ngbTabContent>
+
+                    </ng-template>
+                </ngb-tab>
+
+                <ngb-tab title="Дополнительные настройки">
+                    <ng-template ngbTabContent>
+                        <div *ngIf="editForm.get('deviceModelId').value; else noDeviceModel">
+                            <div *ngFor="let setting of deviceSettingControls.controls; let i = index" style="margin-top: 15px;">
+<!--                                <fieldset style="padding: 10px 15px; border: 1px solid #CCC;">-->
+<!--                                    <legend>Настройка</legend>-->
+                                    <div class="row" [formGroup]="setting">
+
+                                        <div class="col-md-6">
+                                            <select class="form-control" name="settingOption{{i}}" formControlName="settingOption">
+                                                <option [ngValue]="null"></option>
+                                                <option [ngValue]="addOption.id" *ngFor="let addOption of additionalOptions">
+                                                    {{ addOption.code }} ({{ addOption.description }}/{{ addOption.deviceModelName }})
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="setting_value{{i}}" placeholder="Значение"
+                                                   formControlName="settingValue"/>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-danger btn-md" (click)="deleteDeviceSetting(i)">Удалить</button>
+                                        </div>
+                                    </div>
+<!--                                </fieldset>-->
+                            </div>
+
+                            <button type="button" (click)="addDeviceSetting()" class="btn btn-secondary" style="margin-top: 20px; margin-bottom: 20px;">Добавить настройку</button>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+
+
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>

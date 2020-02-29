@@ -19,7 +19,7 @@ export interface IDevice {
   provUrl?: string;
   provProtocol?: ProvProtocol;
   sipAccounts?: ISipAccount[];
-  deviceSettings?: IDeviceSetting[];
+  deviceSettingDTOs?: IDeviceSetting[];
   deviceModelName?: string;
   deviceModelId?: number;
   responsiblePersonId?: number;
@@ -43,7 +43,7 @@ export class Device implements IDevice {
     public provUrl?: string,
     public provProtocol?: ProvProtocol,
     public sipAccounts?: ISipAccount[],
-    public deviceSettings?: IDeviceSetting[],
+    public deviceSettingDTOs?: IDeviceSetting[],
     public deviceModelName?: string,
     public deviceModelId?: number,
     public responsiblePersonId?: number

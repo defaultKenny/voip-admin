@@ -76,8 +76,9 @@ public class Device implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SipAccount> sipAccounts = new HashSet<>();
 
-    @OneToMany(mappedBy = "device")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "device_id")
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<DeviceSetting> deviceSettings = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

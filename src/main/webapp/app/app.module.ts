@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import './vendor';
 import { VoipAdminSharedModule } from 'app/shared/shared.module';
@@ -23,7 +24,8 @@ import { ErrorComponent } from './layouts/error/error.component';
     VoipAdminHomeModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     VoipAdminEntityModule,
-    VoipAdminAppRoutingModule
+    VoipAdminAppRoutingModule,
+    NgbModule
   ],
   declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
   bootstrap: [JhiMainComponent]

@@ -2,6 +2,8 @@ package com.enotkenny.voipadmin.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
+
 import com.enotkenny.voipadmin.domain.enumeration.ProvProtocol;
 
 /**
@@ -47,6 +49,8 @@ public class DeviceDTO implements Serializable {
     private String deviceModelName;
 
     private Long responsiblePersonId;
+
+    private Set<DeviceSettingDTO> deviceSettingDTOs;
 
     public Long getId() {
         return id;
@@ -191,6 +195,27 @@ public class DeviceDTO implements Serializable {
     public void setResponsiblePersonId(Long responsiblePersonId) {
         this.responsiblePersonId = responsiblePersonId;
     }
+
+    public Set<DeviceSettingDTO> getDeviceSettingDTOs() { return deviceSettingDTOs; }
+
+    public DeviceDTO deviceSettingDTOs(Set<DeviceSettingDTO> deviceSettingDTOS) {
+        this.deviceSettingDTOs = deviceSettingDTOS;
+        return this;
+    }
+
+    public DeviceDTO addDeviceSettingDTO(DeviceSettingDTO deviceSettingDTO) {
+        this.deviceSettingDTOs.add(deviceSettingDTO);
+        deviceSettingDTO.setDeviceId(this.id);
+        return this;
+    }
+
+    public DeviceDTO removeDeviceSettingDTO(DeviceSettingDTO deviceSettingDTO) {
+        this.deviceSettingDTOs.remove(deviceSettingDTO);
+        deviceSettingDTO.setDeviceId(null);
+        return this;
+    }
+
+    public void setDeviceSettingDTOs(Set<DeviceSettingDTO> deviceSettingDTOs) { this.deviceSettingDTOs = deviceSettingDTOs; }
 
     @Override
     public boolean equals(Object o) {
