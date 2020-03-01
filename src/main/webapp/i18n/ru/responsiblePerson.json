@@ -2,28 +2,28 @@
   "voipAdminApp": {
     "responsiblePerson": {
       "home": {
-        "title": "Responsible People",
-        "createLabel": "Создать новый Responsible Person",
-        "createOrEditLabel": "Создать или отредактировать Responsible Person",
-        "notFound": "No Responsible People found"
+        "title": "Материально ответственные лица",
+        "createLabel": "Добавить новое материально ответственное лицо",
+        "createOrEditLabel": "Создать или отредактировать материально ответственное лицо",
+        "notFound": "Материально ответственные лица не найдены"
       },
-      "created": "Новый Responsible Person создан с идентификатором {{ param }}",
-      "updated": "Responsible Person обновлен с идентификатором {{ param }}",
-      "deleted": "Responsible Person удален с идентификатором {{ param }}",
+      "created": "Новое Материально ответственн добавлено с идентификатором {{ param }}",
+      "updated": "Материально ответственное лицо обновлено с идентификатором {{ param }}",
+      "deleted": "Материально ответственное лицо удалено с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Responsible Person {{ id }}?"
+        "question": "Вы уверены что хотите удалить Материально ответственное лицо {{ id }}?"
       },
       "detail": {
-        "title": "Responsible Person"
+        "title": "Материально ответственное лицо"
       },
-      "code": "Code",
-      "firstName": "First Name",
-      "middleName": "Middle Name",
-      "lastName": "Last Name",
-      "position": "Position",
-      "department": "Department",
-      "location": "Location",
-      "device": "Device"
+      "code": "Код",
+      "firstName": "Имя",
+      "middleName": "Отчество",
+      "lastName": "Фамилия",
+      "position": "Должность",
+      "department": "Отдел",
+      "location": "Местонахождение",
+      "device": "Устройства"
     }
   }
 }

@@ -18,20 +18,11 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="mac"><span jhiTranslate="voipAdminApp.device.mac">Mac</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="inventory"><span jhiTranslate="voipAdminApp.device.inventory">Inventory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="location"><span jhiTranslate="voipAdminApp.device.location">Location</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="hostname"><span jhiTranslate="voipAdminApp.device.hostname">Hostname</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="webAccessLogin"><span jhiTranslate="voipAdminApp.device.webAccessLogin">Web Access Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="webAccessPassword"><span jhiTranslate="voipAdminApp.device.webAccessPassword">Web Access Password</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="dhcpEnabled"><span jhiTranslate="voipAdminApp.device.dhcpEnabled">Dhcp Enabled</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="ipAddress"><span jhiTranslate="voipAdminApp.device.ipAddress">Ip Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="subnetMask"><span jhiTranslate="voipAdminApp.device.subnetMask">Subnet Mask</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="defaultGateway"><span jhiTranslate="voipAdminApp.device.defaultGateway">Default Gateway</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="dns1"><span jhiTranslate="voipAdminApp.device.dns1">Dns 1</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="dns2"><span jhiTranslate="voipAdminApp.device.dns2">Dns 2</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="provUrl"><span jhiTranslate="voipAdminApp.device.provUrl">Prov Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="provProtocol"><span jhiTranslate="voipAdminApp.device.provProtocol">Prov Protocol</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="deviceModelName"><span jhiTranslate="voipAdminApp.device.deviceModel">Device Model</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="responsiblePersonId"><span jhiTranslate="voipAdminApp.device.responsiblePerson">Responsible Person</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -40,20 +31,11 @@
             </thead>
             <tbody>
             <tr *ngFor="let device of devices ;trackBy: trackId">
-                <td><a [routerLink]="['/device', device.id, 'view' ]">{{device.id}}</a></td>
-                <td>{{device.mac}}</td>
+                <td><a [routerLink]="['/device', device.id, 'view' ]">{{device.mac | mac}}</a></td>
                 <td>{{device.inventory}}</td>
                 <td>{{device.location}}</td>
-                <td>{{device.hostname}}</td>
-                <td>{{device.webAccessLogin}}</td>
-                <td>{{device.webAccessPassword}}</td>
-                <td>{{device.dhcpEnabled}}</td>
+                <td>{{device.dhcpEnabled ? 'Да' : 'Нет'}}</td>
                 <td>{{device.ipAddress}}</td>
-                <td>{{device.subnetMask}}</td>
-                <td>{{device.defaultGateway}}</td>
-                <td>{{device.dns1}}</td>
-                <td>{{device.dns2}}</td>
-                <td>{{device.provUrl}}</td>
                 <td jhiTranslate="{{'voipAdminApp.ProvProtocol.' + device.provProtocol}}">{{device.provProtocol}}</td>
                 <td>
                     <div *ngIf="device.deviceModelId">

@@ -2,22 +2,22 @@
   "voipAdminApp": {
     "deviceType": {
       "home": {
-        "title": "Device Types",
-        "createLabel": "Создать новый Device Type",
-        "createOrEditLabel": "Создать или отредактировать Device Type",
-        "notFound": "No Device Types found"
+        "title": "Типы устройств",
+        "createLabel": "Создать новый тип устройства",
+        "createOrEditLabel": "Создать или отредактировать тип устройства",
+        "notFound": "Типы устройств не найдены"
       },
-      "created": "Новый Device Type создан с идентификатором {{ param }}",
-      "updated": "Device Type обновлен с идентификатором {{ param }}",
-      "deleted": "Device Type удален с идентификатором {{ param }}",
+      "created": "Новый тип устройства создан с идентификатором {{ param }}",
+      "updated": "Тип устройства обновлен с идентификатором {{ param }}",
+      "deleted": "Тип устройства удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Device Type {{ id }}?"
+        "question": "Вы уверены что хотите удалить тип устройства {{ id }}?"
       },
       "detail": {
-        "title": "Device Type"
+        "title": "Тип устройства"
       },
-      "name": "Name",
-      "deviceModel": "Device Model"
+      "name": "Название",
+      "deviceModel": "Модели с таким типом"
     }
   }
 }

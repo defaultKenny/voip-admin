@@ -2,23 +2,23 @@
   "voipAdminApp": {
     "deviceSetting": {
       "home": {
-        "title": "Device Settings",
-        "createLabel": "Создать новый Device Setting",
-        "createOrEditLabel": "Создать или отредактировать Device Setting",
-        "notFound": "No Device Settings found"
+        "title": "Настройки для устройств",
+        "createLabel": "Создать новую настройку для устройства",
+        "createOrEditLabel": "Создать или отредактировать настройку для устройства",
+        "notFound": "Настройки для устройств не найдены"
       },
-      "created": "Новый Device Setting создан с идентификатором {{ param }}",
-      "updated": "Device Setting обновлен с идентификатором {{ param }}",
-      "deleted": "Device Setting удален с идентификатором {{ param }}",
+      "created": "Новая настройка для устройства создана с идентификатором {{ param }}",
+      "updated": "Настройка для устройства обновлена с идентификатором {{ param }}",
+      "deleted": "Настройка для устройства удалена с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Device Setting {{ id }}?"
+        "question": "Вы уверены что хотите удалить настройку для устройства {{ id }}?"
       },
       "detail": {
-        "title": "Device Setting"
+        "title": "Настройка для устройства"
       },
-      "value": "Value",
-      "device": "Device",
-      "additionalOption": "Additional Option"
+      "value": "Значение",
+      "device": "Устройство",
+      "additionalOption": "Опция"
     }
   }
 }

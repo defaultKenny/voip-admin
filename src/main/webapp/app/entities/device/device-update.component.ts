@@ -26,9 +26,9 @@ import { IDeviceSetting, DeviceSetting } from 'app/shared/model/device-setting.m
 export class DeviceUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  devicemodels: IDeviceModel[];
+  devicemodels: IDeviceModel[] = [];
 
-  responsiblepeople: IResponsiblePerson[];
+  responsiblepeople: IResponsiblePerson[] = [];
 
   additionalOptions: IAdditionalOption[];
 
@@ -96,7 +96,7 @@ export class DeviceUpdateComponent implements OnInit {
     console.log(device);
     this.editForm.patchValue({
       id: device.id,
-      mac: device.mac,
+      mac: this.formatMacAfterLoad(device.mac),
       inventory: device.inventory,
       location: device.location,
       hostname: device.hostname,
@@ -147,7 +147,7 @@ export class DeviceUpdateComponent implements OnInit {
     return {
       ...new Device(),
       id: this.editForm.get(['id']).value,
-      mac: this.editForm.get(['mac']).value,
+      mac: this.formatMacBeforeSave(this.editForm.get(['mac']).value),
       inventory: this.editForm.get(['inventory']).value,
       location: this.editForm.get(['location']).value,
       hostname: this.editForm.get(['hostname']).value,
@@ -210,7 +210,6 @@ export class DeviceUpdateComponent implements OnInit {
   }
 
   private addDeviceSetting() {
-    console.log('here');
     this.deviceSettingControls.push(
       this.fb.group({
         settingId: [],
@@ -225,19 +224,21 @@ export class DeviceUpdateComponent implements OnInit {
   }
 
   private reloadModelOptions() {
-    this.additionalOptionService
-      .query({ 'deviceModelsId.equals': this.editForm.get(['deviceModelId']).value })
-      .subscribe(
-        (res: HttpResponse<IAdditionalOption[]>) => (this.additionalOptions = res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    if (this.editForm.get(['deviceModelId']).value) {
+      this.additionalOptionService
+        .query({ 'deviceModelsId.equals': this.editForm.get(['deviceModelId']).value })
+        .subscribe(
+          (res: HttpResponse<IAdditionalOption[]>) => (this.additionalOptions = res.body),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
   }
 
   private clearForeignSettings() {
     let deviceModelOptions;
     const deviceModelId = this.editForm.get(['deviceModelId']).value;
     this.deviceModelService.find(deviceModelId).subscribe(
-      (res: HttpResponse<IDeviceModel[]>) => {
+      (res: HttpResponse<IDeviceModel>) => {
         console.log(res);
         deviceModelOptions = res.body.additionalOptions.map(option => option.id);
 
@@ -255,13 +256,24 @@ export class DeviceUpdateComponent implements OnInit {
 
   private onDeviceModelChange(content, oldValue) {
     this.modalService.open(content, {}).result.then(
-      result => {
+      () => {
         this.clearForeignSettings();
         this.reloadModelOptions();
       },
-      reason => {
+      () => {
         this.editForm.get(['deviceModelId']).setValue(oldValue);
       }
     );
+  }
+
+  private formatMacBeforeSave(mac) {
+    return mac.replace(/[:.-]/g, '').toLowerCase();
+  }
+
+  private formatMacAfterLoad(mac) {
+    return mac
+      .match(/.{2}/g)
+      .join('-')
+      .toUpperCase();
   }
 }

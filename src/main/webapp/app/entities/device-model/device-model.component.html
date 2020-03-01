@@ -18,7 +18,6 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span jhiTranslate="voipAdminApp.deviceModel.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="isConfigurable"><span jhiTranslate="voipAdminApp.deviceModel.isConfigurable">Is Configurable</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="linesCount"><span jhiTranslate="voipAdminApp.deviceModel.linesCount">Lines Count</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -30,9 +29,8 @@
             </thead>
             <tbody>
             <tr *ngFor="let deviceModel of deviceModels ;trackBy: trackId">
-                <td><a [routerLink]="['/device-model', deviceModel.id, 'view' ]">{{deviceModel.id}}</a></td>
-                <td>{{deviceModel.name}}</td>
-                <td>{{deviceModel.isConfigurable}}</td>
+                <td><a [routerLink]="['/device-model', deviceModel.id, 'view' ]">{{deviceModel.name}}</a></td>
+                <td>{{deviceModel.isConfigurable ? 'Да' : 'Нет'}}</td>
                 <td>{{deviceModel.linesCount}}</td>
                 <td>
                     <a *ngIf="deviceModel.configFile" (click)="openFile(deviceModel.configFileContentType, deviceModel.configFile)" jhiTranslate="entity.action.open">open</a>

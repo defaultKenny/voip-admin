@@ -2,28 +2,28 @@
   "voipAdminApp": {
     "deviceModel": {
       "home": {
-        "title": "Device Models",
-        "createLabel": "Создать новый Device Model",
-        "createOrEditLabel": "Создать или отредактировать Device Model",
-        "notFound": "No Device Models found"
+        "title": "Модели устройств",
+        "createLabel": "Добавить новую модель устройства",
+        "createOrEditLabel": "Создать или отредактировать модель устройства",
+        "notFound": "Модели устройств не найдены"
       },
-      "created": "Новый Device Model создан с идентификатором {{ param }}",
-      "updated": "Device Model обновлен с идентификатором {{ param }}",
-      "deleted": "Device Model удален с идентификатором {{ param }}",
+      "created": "Новая модель устройства добавлена с идентификатором {{ param }}",
+      "updated": "Модель устройства обновлен с идентификатором {{ param }}",
+      "deleted": "Модель устройства удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Device Model {{ id }}?"
+        "question": "Вы уверены что хотите удалить модель устройства {{ id }}?"
       },
       "detail": {
-        "title": "Device Model"
+        "title": "Модель устройства"
       },
-      "name": "Name",
-      "isConfigurable": "Is Configurable",
-      "linesCount": "Lines Count",
-      "configFile": "Config File",
-      "firmwareFile": "Firmware File",
-      "device": "Device",
-      "additionalOptions": "Additional Options",
-      "deviceType": "Device Type"
+      "name": "Название",
+      "isConfigurable": "Конфигурироемое",
+      "linesCount": "Количество линий",
+      "configFile": "Файл конфигурации",
+      "firmwareFile": "Файл прошивки",
+      "device": "Устройства",
+      "additionalOptions": "Доступные доп. опции",
+      "deviceType": "Тип устройства"
     }
   }
 }

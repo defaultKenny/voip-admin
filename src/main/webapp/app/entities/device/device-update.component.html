@@ -16,10 +16,15 @@
                             <div class="form-group">
                                 <label class="form-control-label" jhiTranslate="voipAdminApp.device.mac" for="field_mac">Mac</label>
                                 <input type="text" class="form-control" name="mac" id="field_mac"
+                                       pattern="^(([a-fA-F0-9]{2}-){5}[a-fA-F0-9]{2}|([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}|([0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4})?$"
                                        formControlName="mac"/>
                                 <div *ngIf="editForm.get('mac').invalid && (editForm.get('mac').dirty || editForm.get('mac').touched)">
                                     <small class="form-text text-danger"
                                            *ngIf="editForm.get('mac').errors.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           *ngIf="editForm.get('mac').errors.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{pattern: 'AA:BB:CC:DD:EE:FF/AA-BB-CC-DD-EE-FF/AABB.CCDD.EEFF'}">
                                         This field is required.
                                     </small>
                                 </div>
@@ -55,35 +60,40 @@
                                 <input type="text" class="form-control" name="webAccessPassword" id="field_webAccessPassword"
                                        formControlName="webAccessPassword"/>
                             </div>
+<!--                            <div class="form-group">-->
+<!--                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.dhcpEnabled" for="field_dhcpEnabled">Dhcp Enabled</label>-->
+<!--                                <input type="checkbox" class="form-control" name="dhcpEnabled" id="field_dhcpEnabled"-->
+<!--                                       formControlName="dhcpEnabled"/>-->
+<!--                            </div>-->
                             <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.dhcpEnabled" for="field_dhcpEnabled">Dhcp Enabled</label>
-                                <input type="checkbox" class="form-control" name="dhcpEnabled" id="field_dhcpEnabled"
-                                       formControlName="dhcpEnabled"/>
+                                <mat-slide-toggle formControlName="dhcpEnabled">Включить DHCP</mat-slide-toggle>
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.ipAddress" for="field_ipAddress">Ip Address</label>
-                                <input type="text" class="form-control" name="ipAddress" id="field_ipAddress"
-                                       formControlName="ipAddress"/>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.subnetMask" for="field_subnetMask">Subnet Mask</label>
-                                <input type="text" class="form-control" name="subnetMask" id="field_subnetMask"
-                                       formControlName="subnetMask"/>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.defaultGateway" for="field_defaultGateway">Default Gateway</label>
-                                <input type="text" class="form-control" name="defaultGateway" id="field_defaultGateway"
-                                       formControlName="defaultGateway"/>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.dns1" for="field_dns1">Dns 1</label>
-                                <input type="text" class="form-control" name="dns1" id="field_dns1"
-                                       formControlName="dns1"/>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="voipAdminApp.device.dns2" for="field_dns2">Dns 2</label>
-                                <input type="text" class="form-control" name="dns2" id="field_dns2"
-                                       formControlName="dns2"/>
+                            <div *ngIf="!editForm.get('dhcpEnabled').value">
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.ipAddress" for="field_ipAddress">Ip Address</label>
+                                    <input type="text" class="form-control" name="ipAddress" id="field_ipAddress"
+                                           formControlName="ipAddress"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.subnetMask" for="field_subnetMask">Subnet Mask</label>
+                                    <input type="text" class="form-control" name="subnetMask" id="field_subnetMask"
+                                           formControlName="subnetMask"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.defaultGateway" for="field_defaultGateway">Default Gateway</label>
+                                    <input type="text" class="form-control" name="defaultGateway" id="field_defaultGateway"
+                                           formControlName="defaultGateway"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.dns1" for="field_dns1">Dns 1</label>
+                                    <input type="text" class="form-control" name="dns1" id="field_dns1"
+                                           formControlName="dns1"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="voipAdminApp.device.dns2" for="field_dns2">Dns 2</label>
+                                    <input type="text" class="form-control" name="dns2" id="field_dns2"
+                                           formControlName="dns2"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" jhiTranslate="voipAdminApp.device.provUrl" for="field_provUrl">Prov Url</label>
@@ -103,8 +113,7 @@
                             <div class="form-group">
                                 <label class="form-control-label" jhiTranslate="voipAdminApp.device.deviceModel" for="field_deviceModel">Device Model</label>
                                 <select class="form-control" id="field_deviceModel" name="deviceModel" formControlName="deviceModelId" (focus)="old = $event.target.value" (change)="onDeviceModelChange(content, old)">
-                                    <option *ngIf="!editForm.get('deviceModelId').value" [ngValue]="null" selected></option>
-                                    <option [ngValue]="deviceModelOption.id" *ngFor="let deviceModelOption of devicemodels; trackBy: trackDeviceModelById">{{deviceModelOption.name}}</option>
+                                    <option [ngValue]="deviceModelOption.id" *ngFor="let deviceModelOption of devicemodels | orderBy:'name'; trackBy: trackDeviceModelById">{{deviceModelOption.name}}</option>
                                 </select>
                             </div>
                             <div *ngIf="editForm.get('deviceModelId').invalid && (editForm.get('deviceModelId').dirty || editForm.get('deviceModelId').touched)">
@@ -117,7 +126,9 @@
                                 <label class="form-control-label" jhiTranslate="voipAdminApp.device.responsiblePerson" for="field_responsiblePerson">Responsible Person</label>
                                 <select class="form-control" id="field_responsiblePerson" name="responsiblePerson" formControlName="responsiblePersonId">
                                     <option [ngValue]="null"></option>
-                                    <option [ngValue]="responsiblePersonOption.id" *ngFor="let responsiblePersonOption of responsiblepeople; trackBy: trackResponsiblePersonById">{{responsiblePersonOption.id}}</option>
+                                    <option [ngValue]="responsiblePersonOption.id" *ngFor="let responsiblePersonOption of responsiblepeople | orderBy:'lastName'; trackBy: trackResponsiblePersonById">
+                                        {{responsiblePersonOption.lastName}} {{responsiblePersonOption.firstName}} {{responsiblePersonOption.middleName}} ({{responsiblePersonOption.department}}/{{responsiblePersonOption.location}})
+                                    </option>
                                 </select>
                             </div>
                         </div>

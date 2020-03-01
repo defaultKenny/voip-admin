@@ -2,23 +2,23 @@
   "voipAdminApp": {
     "pbxAccount": {
       "home": {
-        "title": "Pbx Accounts",
-        "createLabel": "Создать новый Pbx Account",
-        "createOrEditLabel": "Создать или отредактировать Pbx Account",
-        "notFound": "No Pbx Accounts found"
+        "title": "АТС-аккаунты",
+        "createLabel": "Создать новый АТС-аккаунт",
+        "createOrEditLabel": "Создать или отредактировать АТС-аккаунт",
+        "notFound": "АТС-аккаунты не найдены"
       },
-      "created": "Новый Pbx Account создан с идентификатором {{ param }}",
-      "updated": "Pbx Account обновлен с идентификатором {{ param }}",
-      "deleted": "Pbx Account удален с идентификатором {{ param }}",
+      "created": "Новый АТС-аккаунт создан с идентификатором {{ param }}",
+      "updated": "АТС-аккаунт обновлен с идентификатором {{ param }}",
+      "deleted": "АТС-аккаунт удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Pbx Account {{ id }}?"
+        "question": "Вы уверены что хотите удалить АТС-аккаунт {{ id }}?"
       },
       "detail": {
-        "title": "Pbx Account"
+        "title": "АТС-аккаунт"
       },
-      "username": "Username",
-      "pbxId": "Pbx Id",
-      "sipAccount": "Sip Account"
+      "username": "Имя пользователя",
+      "pbxId": "ID в АТС",
+      "sipAccount": "SIP-аккаунт"
     }
   }
 }

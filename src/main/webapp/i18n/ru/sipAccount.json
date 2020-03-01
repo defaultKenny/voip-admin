@@ -2,27 +2,27 @@
   "voipAdminApp": {
     "sipAccount": {
       "home": {
-        "title": "Sip Accounts",
-        "createLabel": "Создать новый Sip Account",
-        "createOrEditLabel": "Создать или отредактировать Sip Account",
-        "notFound": "No Sip Accounts found"
+        "title": "SIP-аккаунты",
+        "createLabel": "Создать новый SIP-аккаунт",
+        "createOrEditLabel": "Создать или отредактировать SIP-аккаунт",
+        "notFound": "SIP-аккаунты не найдены"
       },
-      "created": "Новый Sip Account создан с идентификатором {{ param }}",
-      "updated": "Sip Account обновлен с идентификатором {{ param }}",
-      "deleted": "Sip Account удален с идентификатором {{ param }}",
+      "created": "Новый SIP-аккаунт создан с идентификатором {{ param }}",
+      "updated": "SIP-аккаунт обновлен с идентификатором {{ param }}",
+      "deleted": "SIP-аккаунт удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Sip Account {{ id }}?"
+        "question": "Вы уверены что хотите удалить SIP-аккаунт {{ id }}?"
       },
       "detail": {
-        "title": "Sip Account"
+        "title": "SIP-аккаунт"
       },
-      "username": "Username",
-      "password": "Password",
-      "lineEnabled": "Line Enabled",
-      "lineNumber": "Line Number",
-      "isManuallyCreated": "Is Manually Created",
-      "pbxAccount": "Pbx Account",
-      "device": "Device"
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "lineEnabled": "Линия активна",
+      "lineNumber": "Номер линии",
+      "isManuallyCreated": "Ручная настройка",
+      "pbxAccount": "Аккаунт АТС",
+      "device": "Устройство"
     }
   }
 }

@@ -7,14 +7,14 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Сущности",
-        "device": "Device",
-        "deviceModel": "Device Model",
-        "deviceType": "Device Type",
-        "sipAccount": "Sip Account",
-        "pbxAccount": "Pbx Account",
-        "responsiblePerson": "Responsible Person",
-        "additionalOption": "Additional Option",
-        "deviceSetting": "Device Setting",
+        "device": "Устройства",
+        "deviceModel": "Модели устройств",
+        "deviceType": "Типы устройств",
+        "sipAccount": "SIP-аккаунты",
+        "pbxAccount": "АТС-аккаунты",
+        "responsiblePerson": "Материально ответственные лица",
+        "additionalOption": "Дополнительные опции",
+        "deviceSetting": "Настройки устройств",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

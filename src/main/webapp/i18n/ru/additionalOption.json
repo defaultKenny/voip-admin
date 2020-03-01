@@ -2,24 +2,24 @@
   "voipAdminApp": {
     "additionalOption": {
       "home": {
-        "title": "Additional Options",
-        "createLabel": "Создать новый Additional Option",
-        "createOrEditLabel": "Создать или отредактировать Additional Option",
-        "notFound": "No Additional Options found"
+        "title": "Дополнительные опции",
+        "createLabel": "Создать новую доп. опцию",
+        "createOrEditLabel": "Создать или отредактировать доп. опцию",
+        "notFound": "Дополнительные опции не найдены"
       },
-      "created": "Новый Additional Option создан с идентификатором {{ param }}",
-      "updated": "Additional Option обновлен с идентификатором {{ param }}",
-      "deleted": "Additional Option удален с идентификатором {{ param }}",
+      "created": "Новая доп. опция создана с идентификатором {{ param }}",
+      "updated": "Доп. опция обновлена с идентификатором {{ param }}",
+      "deleted": "Доп. опция удалена с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Additional Option {{ id }}?"
+        "question": "Вы уверены что хотите удалить доп. опцию {{ id }}?"
       },
       "detail": {
-        "title": "Additional Option"
+        "title": "Дополнительная опция"
       },
-      "code": "Code",
-      "description": "Description",
-      "deviceSetting": "Device Setting",
-      "deviceModels": "Device Models"
+      "code": "Код",
+      "description": "Описание",
+      "deviceSetting": "Настройки с данной опцией",
+      "deviceModels": "Модели устройств с данной опцией"
     }
   }
 }
