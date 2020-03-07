@@ -72,13 +72,12 @@ public class Device implements Serializable {
     @Column(name = "prov_protocol")
     private ProvProtocol provProtocol;
 
-    @OneToMany(mappedBy = "device")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "device_id")
     private Set<SipAccount> sipAccounts = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "device_id")
-//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<DeviceSetting> deviceSettings = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

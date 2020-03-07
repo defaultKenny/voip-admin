@@ -52,6 +52,8 @@ public class DeviceDTO implements Serializable {
 
     private Set<DeviceSettingDTO> deviceSettingDTOs;
 
+    private Set<SipAccountDTO> sipAccounts;
+
     public Long getId() {
         return id;
     }
@@ -216,6 +218,27 @@ public class DeviceDTO implements Serializable {
     }
 
     public void setDeviceSettingDTOs(Set<DeviceSettingDTO> deviceSettingDTOs) { this.deviceSettingDTOs = deviceSettingDTOs; }
+
+    public Set<SipAccountDTO> getSipAccounts() { return sipAccounts; }
+
+    public DeviceDTO SipAccounts(Set<SipAccountDTO> sipAccounts) {
+        this.sipAccounts = sipAccounts;
+        return this;
+    }
+
+    public DeviceDTO addSipAccount(SipAccountDTO sipAccountDTO) {
+        this.sipAccounts.add(sipAccountDTO);
+        sipAccountDTO.setDeviceId(this.id);
+        return this;
+    }
+
+    public DeviceDTO removeSipAccount(SipAccountDTO sipAccountDTO) {
+        this.sipAccounts.remove(sipAccountDTO);
+        sipAccountDTO.setDeviceId(null);
+        return this;
+    }
+
+    public void setSipAccounts(Set<SipAccountDTO> sipAccounts) { this.sipAccounts = sipAccounts; }
 
     @Override
     public boolean equals(Object o) {

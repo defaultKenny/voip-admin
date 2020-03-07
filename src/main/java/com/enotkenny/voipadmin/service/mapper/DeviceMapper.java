@@ -9,21 +9,23 @@ import org.mapstruct.*;
  * Mapper for the entity {@link Device} and its DTO {@link DeviceDTO}.
  */
 @Mapper(componentModel = "spring", uses = {DeviceModelMapper.class, ResponsiblePersonMapper.class,
-    DeviceSettingMapper.class})
+    DeviceSettingMapper.class, SipAccountMapper.class})
 public interface DeviceMapper extends EntityMapper<DeviceDTO, Device> {
 
     @Mapping(source = "deviceModel.id", target = "deviceModelId")
     @Mapping(source = "deviceModel.name", target = "deviceModelName")
     @Mapping(source = "responsiblePerson.id", target = "responsiblePersonId")
     @Mapping(source = "deviceSettings", target = "deviceSettingDTOs")
+    @Mapping(source = "sipAccounts", target = "sipAccounts")
     DeviceDTO toDto(Device device);
 
-    @Mapping(target = "sipAccounts", ignore = true)
-    @Mapping(target = "removeSipAccount", ignore = true)
+//    @Mapping(target = "sipAccounts", ignore = true)
+//    @Mapping(target = "removeSipAccount", ignore = true)
     @Mapping(target = "removeDeviceSetting", ignore = true)
     @Mapping(source = "deviceModelId", target = "deviceModel")
     @Mapping(source = "responsiblePersonId", target = "responsiblePerson")
     @Mapping(source = "deviceSettingDTOs", target = "deviceSettings")
+    @Mapping(source = "sipAccounts", target = "sipAccounts")
     Device toEntity(DeviceDTO deviceDTO);
 
     default Device fromId(Long id) {

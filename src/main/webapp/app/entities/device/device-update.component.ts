@@ -15,8 +15,12 @@ import { IResponsiblePerson } from 'app/shared/model/responsible-person.model';
 import { ResponsiblePersonService } from 'app/entities/responsible-person/responsible-person.service';
 import { AdditionalOptionService } from 'app/entities/additional-option/additional-option.service';
 import { IAdditionalOption } from 'app/shared/model/additional-option.model';
-// import { DeviceSettingService } from 'app/entities/device-setting/device-setting.service';
 import { IDeviceSetting, DeviceSetting } from 'app/shared/model/device-setting.model';
+import { IPbxAccount } from 'app/shared/model/pbx-account.model';
+import { PbxAccountService } from 'app/entities/pbx-account/pbx-account.service';
+import { ISipAccount, SipAccount } from 'app/shared/model/sip-account.model';
+// import { StandardModalComponent } from 'app/shared/standard-modal/standard-modal.component';
+import { DeviceModelChangeDialogComponent } from './device-model-change-dialog.component';
 
 @Component({
   selector: 'jhi-device-update',
@@ -26,11 +30,15 @@ import { IDeviceSetting, DeviceSetting } from 'app/shared/model/device-setting.m
 export class DeviceUpdateComponent implements OnInit {
   isSaving: boolean;
 
+  linesCount = 0;
+
   devicemodels: IDeviceModel[] = [];
 
   responsiblepeople: IResponsiblePerson[] = [];
 
-  additionalOptions: IAdditionalOption[];
+  additionalOptions: IAdditionalOption[] = [];
+
+  pbxAccounts: IPbxAccount[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -50,7 +58,8 @@ export class DeviceUpdateComponent implements OnInit {
     provProtocol: [],
     deviceModelId: [null, Validators.required],
     responsiblePersonId: [],
-    settings: new FormArray([])
+    settings: new FormArray([]),
+    accounts: new FormArray([])
   });
 
   get deviceSettingControls() {
@@ -61,12 +70,21 @@ export class DeviceUpdateComponent implements OnInit {
     this.editForm.controls.settings = value;
   }
 
+  get sipAccountControls() {
+    return this.editForm.controls.accounts as FormArray;
+  }
+
+  set sipAccountControls(value) {
+    this.editForm.controls.accounts = value;
+  }
+
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected deviceService: DeviceService,
     protected deviceModelService: DeviceModelService,
     protected responsiblePersonService: ResponsiblePersonService,
     protected additionalOptionService: AdditionalOptionService,
+    protected pbxAccountService: PbxAccountService,
     protected activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private fb: FormBuilder
@@ -76,6 +94,7 @@ export class DeviceUpdateComponent implements OnInit {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ device }) => {
       this.updateForm(device);
+      this.updateLinesCount();
     });
     this.deviceModelService
       .query()
@@ -89,11 +108,35 @@ export class DeviceUpdateComponent implements OnInit {
         (res: HttpResponse<IResponsiblePerson[]>) => (this.responsiblepeople = res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+    this.pbxAccountService
+      .query()
+      .subscribe(
+        (res: HttpResponse<IPbxAccount[]>) => (this.pbxAccounts = res.body),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
     this.reloadModelOptions();
+
+    this.editForm.get('deviceModelId').valueChanges.subscribe(() => {
+      console.log('1234');
+      const oldValue = this.editForm.value['deviceModelId'];
+      //       this.onDeviceModelChange();
+
+      this.modalService.open(DeviceModelChangeDialogComponent).result.then(
+        () => {
+          console.log('true');
+          this.clearForeignSettingsAndLines();
+          this.reloadModelOptions();
+          this.updateLinesCount();
+        },
+        () => {
+          console.log('cancel');
+          this.editForm.get(['deviceModelId']).setValue(oldValue);
+        }
+      );
+    });
   }
 
   updateForm(device: IDevice) {
-    console.log(device);
     this.editForm.patchValue({
       id: device.id,
       mac: this.formatMacAfterLoad(device.mac),
@@ -114,6 +157,7 @@ export class DeviceUpdateComponent implements OnInit {
       responsiblePersonId: device.responsiblePersonId
     });
     this.updateDeviceSettingsForm(device);
+    this.updateSipAccountsForm(device);
   }
 
   private updateDeviceSettingsForm(device: IDevice) {
@@ -125,6 +169,27 @@ export class DeviceUpdateComponent implements OnInit {
           settingOption: device.deviceSettingDTOs[index].additionalOptionId,
           settingValue: device.deviceSettingDTOs[index].value
         });
+      }
+    }
+  }
+
+  private updateSipAccountsForm(device: IDevice) {
+    if (!!device && !!device.sipAccounts) {
+      const maxLineNumber = Math.max(...device.sipAccounts.map(account => account.lineNumber));
+      for (let index = 0; index < maxLineNumber; index++) {
+        this.addSipAccount();
+        const currentAccount = device.sipAccounts.find(account => account.lineNumber === index + 1);
+        if (currentAccount) {
+          this.sipAccountControls.controls[index].patchValue({
+            sipAccountId: currentAccount.id,
+            sipAccountUsername: currentAccount.username,
+            sipAccountPassword: currentAccount.password,
+            sipAccountLineEnabled: currentAccount.lineEnabled,
+            sipAccountLineNumber: currentAccount.lineNumber,
+            sipAccountIsManuallyCreated: currentAccount.isManuallyCreated,
+            sipAccountPbxAccountId: currentAccount.pbxAccountId
+          });
+        }
       }
     }
   }
@@ -163,7 +228,8 @@ export class DeviceUpdateComponent implements OnInit {
       provProtocol: this.editForm.get(['provProtocol']).value,
       deviceModelId: this.editForm.get(['deviceModelId']).value,
       responsiblePersonId: this.editForm.get(['responsiblePersonId']).value,
-      deviceSettingDTOs: this.createDeviceSettingsArrayFromForm()
+      deviceSettingDTOs: this.createDeviceSettingsArrayFromForm(),
+      sipAccounts: this.createSipAccountsArrayFromForm()
     };
   }
 
@@ -181,6 +247,29 @@ export class DeviceUpdateComponent implements OnInit {
       id: group.get(['settingId']).value,
       value: group.get(['settingValue']).value,
       additionalOptionId: group.get(['settingOption']).value,
+      deviceId: this.editForm.get(['id']).value
+    };
+  }
+
+  private createSipAccountsArrayFromForm(): ISipAccount[] {
+    const result = [];
+    for (const group of this.sipAccountControls.controls) {
+      console.log(group.get(['sipAccountLineNumber']));
+      result.push(this.createSipAccountFromForm(group));
+    }
+    return result;
+  }
+
+  private createSipAccountFromForm(group): ISipAccount {
+    return {
+      ...new SipAccount(),
+      id: group.get(['sipAccountId']).value,
+      username: group.get(['sipAccountUsername']).value,
+      password: group.get(['sipAccountPassword']).value,
+      lineEnabled: group.get(['sipAccountLineEnabled']).value,
+      lineNumber: group.get(['sipAccountLineNumber']).value,
+      isManuallyCreated: group.get(['sipAccountIsManuallyCreated']).value,
+      pbxAccountId: group.get(['sipAccountPbxAccountId']).value,
       deviceId: this.editForm.get(['id']).value
     };
   }
@@ -209,6 +298,10 @@ export class DeviceUpdateComponent implements OnInit {
     return item.id;
   }
 
+  trackpbxAccountById(index: number, item: IPbxAccount) {
+    return item.id;
+  }
+
   private addDeviceSetting() {
     this.deviceSettingControls.push(
       this.fb.group({
@@ -223,6 +316,24 @@ export class DeviceUpdateComponent implements OnInit {
     this.deviceSettingControls.removeAt(index);
   }
 
+  private addSipAccount() {
+    this.sipAccountControls.push(
+      this.fb.group({
+        sipAccountId: [],
+        sipAccountUsername: [],
+        sipAccountPassword: [],
+        sipAccountLineEnabled: [],
+        sipAccountLineNumber: this.sipAccountControls.length + 1,
+        sipAccountIsManuallyCreated: [],
+        sipAccountPbxAccountId: []
+      })
+    );
+  }
+
+  private deleteSipAccount(index: number) {
+    this.sipAccountControls.removeAt(index);
+  }
+
   private reloadModelOptions() {
     if (this.editForm.get(['deviceModelId']).value) {
       this.additionalOptionService
@@ -234,34 +345,58 @@ export class DeviceUpdateComponent implements OnInit {
     }
   }
 
-  private clearForeignSettings() {
+  private clearForeignSettingsAndLines() {
     let deviceModelOptions;
+    let deviceLinesCount;
     const deviceModelId = this.editForm.get(['deviceModelId']).value;
     this.deviceModelService.find(deviceModelId).subscribe(
       (res: HttpResponse<IDeviceModel>) => {
-        console.log(res);
         deviceModelOptions = res.body.additionalOptions.map(option => option.id);
-
         this.deviceSettingControls.controls = this.deviceSettingControls.controls.filter(control => {
           if (deviceModelOptions.indexOf(control.value.settingOption) !== -1) {
             return true;
           }
         });
 
-        console.log(this.deviceSettingControls);
+        deviceLinesCount = res.body.linesCount;
+        this.sipAccountControls.controls = this.sipAccountControls.controls.slice(0, deviceLinesCount);
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
   }
 
-  private onDeviceModelChange(content, oldValue) {
-    this.modalService.open(content, {}).result.then(
+  private updateLinesCount() {
+    const deviceModelId = this.editForm.get(['deviceModelId']).value;
+    if (deviceModelId) {
+      this.deviceModelService.find(deviceModelId).subscribe(
+        (res: HttpResponse<IDeviceModel>) => {
+          this.linesCount = res.body.linesCount;
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    }
+  }
+
+  private onDeviceModelChange() {
+    // this.modalService.open(content, {}).result.then(
+    //   () => {
+    //     this.clearForeignSettingsAndLines();
+    //     this.reloadModelOptions();
+    //     this.updateLinesCount();
+    //   },
+    //   () => {
+    //     this.editForm.get(['deviceModelId']).setValue(this.editForm.value['deviceModelId']);
+    //   }
+    // );
+
+    this.modalService.open(DeviceModelChangeDialogComponent).result.then(
       () => {
-        this.clearForeignSettings();
-        this.reloadModelOptions();
+        //         this.clearForeignSettingsAndLines();
+        //         this.reloadModelOptions();
+        //         this.updateLinesCount();
       },
       () => {
-        this.editForm.get(['deviceModelId']).setValue(oldValue);
+        this.editForm.get(['deviceModelId']).setValue(this.editForm.value['deviceModelId']);
       }
     );
   }
@@ -271,9 +406,11 @@ export class DeviceUpdateComponent implements OnInit {
   }
 
   private formatMacAfterLoad(mac) {
-    return mac
-      .match(/.{2}/g)
-      .join('-')
-      .toUpperCase();
+    if (mac) {
+      return mac
+        .match(/.{2}/g)
+        .join('-')
+        .toUpperCase();
+    }
   }
 }

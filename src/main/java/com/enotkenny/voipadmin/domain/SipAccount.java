@@ -44,8 +44,8 @@ public class SipAccount implements Serializable {
     private PbxAccount pbxAccount;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @NotNull
-    @JsonIgnoreProperties("sipAccounts")
+//    @NotNull
+//    @JsonIgnoreProperties("sipAccounts")
     private Device device;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

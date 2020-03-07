@@ -112,8 +112,10 @@
 
                             <div class="form-group">
                                 <label class="form-control-label" jhiTranslate="voipAdminApp.device.deviceModel" for="field_deviceModel">Device Model</label>
-                                <select class="form-control" id="field_deviceModel" name="deviceModel" formControlName="deviceModelId" (focus)="old = $event.target.value" (change)="onDeviceModelChange(content, old)">
-                                    <option [ngValue]="deviceModelOption.id" *ngFor="let deviceModelOption of devicemodels | orderBy:'name'; trackBy: trackDeviceModelById">{{deviceModelOption.name}}</option>
+                                <select class="form-control" id="field_deviceModel" name="deviceModel" formControlName="deviceModelId">
+                                    <option [ngValue]="deviceModelOption.id" *ngFor="let deviceModelOption of devicemodels | orderBy:'name'; trackBy: trackDeviceModelById">
+                                        {{deviceModelOption.name}} ({{ deviceModelOption?.isConfigurable ? 'Конфигурируемое' : 'Не конфигурируемое' }}: {{ deviceModelOption.linesCount }} линии)
+                                    </option>
                                 </select>
                             </div>
                             <div *ngIf="editForm.get('deviceModelId').invalid && (editForm.get('deviceModelId').dirty || editForm.get('deviceModelId').touched)">
@@ -158,7 +160,59 @@
 
                 <ngb-tab title="Настройки линий">
                     <ng-template ngbTabContent>
+                        <div *ngIf="editForm.get('deviceModelId').value; else noDeviceModel">
+                            <div *ngFor="let account of sipAccountControls.controls; let i = index">
+                                <div [formGroup]="account" class="line-group">
+                                    <div class="form-group">
+                                        <label for="sipAccountLineNumber" jhiTranslate="voipAdminApp.sipAccount.lineNumber">Line Number</label>
+                                        <input type="text" class="form-control" id="sipAccountLineNumber" name="sipAccountLineNumber" formControlName="sipAccountLineNumber"
+                                               readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <mat-slide-toggle formControlName="sipAccountLineEnabled">Линия активна</mat-slide-toggle>
+                                    </div>
+                                    <div class="form-group">
+                                        <mat-slide-toggle formControlName="sipAccountIsManuallyCreated">Ручная настройка</mat-slide-toggle>
+                                    </div>
+                                    <div *ngIf="!account.get('sipAccountIsManuallyCreated').value; else manualCreate">
+                                        <div class="form-group">
+                                            <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.pbxAccount" for="sipAccountPbxAccountId">Pbx Account Id</label>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <select class="form-control" name="sipAccountPbxAccountId" formControlName="sipAccountPbxAccountId" id="sipAccountPbxAccountId">
+                                                        <option [ngValue]="pbxAccountOption.id" *ngFor="let pbxAccountOption of pbxAccounts; trackBy: trackPbxAccountById">{{pbxAccountOption.username}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button class="btn btn-danger" (click)="deleteSipAccount(i)">Удалить</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #manualCreate>
+                                        <div class="row">
+                                            <div class="form-group col-md-5">
+                                                <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.username" for="sipAccountUsername">SIP Account Username</label>
+                                                <input type="text" class="form-control" name="sipAccountUsername" id="sipAccountUsername"
+                                                       formControlName="sipAccountUsername"/>
+                                            </div>
+                                            <div class="form-group col-md-5">
+                                                <label class="form-control-label" jhiTranslate="voipAdminApp.sipAccount.password" for="sipAccountPassword">SIP Account Password</label>
+                                                <input type="text" class="form-control" name="sipAccountPassword" id="sipAccountPassword"
+                                                       formControlName="sipAccountPassword"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button class="btn btn-danger delete-button" (click)="deleteSipAccount(i)">Удалить</button>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
 
+                            <div *ngIf="sipAccountControls.length < linesCount">
+                                <button type="button" (click)="addSipAccount()" class="btn btn-secondary" style="margin-top: 20px; margin-bottom: 20px;">Добавить линию</button>
+                            </div>
+                        </div>
                     </ng-template>
                 </ngb-tab>
 
@@ -166,28 +220,22 @@
                     <ng-template ngbTabContent>
                         <div *ngIf="editForm.get('deviceModelId').value; else noDeviceModel">
                             <div *ngFor="let setting of deviceSettingControls.controls; let i = index" style="margin-top: 15px;">
-<!--                                <fieldset style="padding: 10px 15px; border: 1px solid #CCC;">-->
-<!--                                    <legend>Настройка</legend>-->
-                                    <div class="row" [formGroup]="setting">
-
-                                        <div class="col-md-6">
-                                            <select class="form-control" name="settingOption{{i}}" formControlName="settingOption">
-                                                <option [ngValue]="addOption.id" *ngFor="let addOption of additionalOptions">
-                                                    {{ addOption.code }} ({{ addOption.description }})
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control" name="setting_value{{i}}" placeholder="Значение"
-                                                   formControlName="settingValue"/>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <button type="button" class="btn btn-danger btn-md" (click)="deleteDeviceSetting(i)">Удалить</button>
-                                        </div>
+                                <div class="row" [formGroup]="setting">
+                                    <div class="col-md-6">
+                                        <select class="form-control" name="settingOption{{i}}" formControlName="settingOption">
+                                            <option [ngValue]="addOption.id" *ngFor="let addOption of additionalOptions">
+                                                {{ addOption.code }} ({{ addOption.description }})
+                                            </option>
+                                        </select>
                                     </div>
-<!--                                </fieldset>-->
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" name="setting_value{{i}}" placeholder="Значение"
+                                               formControlName="settingValue"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-danger btn-md" (click)="deleteDeviceSetting(i)">Удалить</button>
+                                    </div>
+                                </div>
                             </div>
 
                             <button type="button" (click)="addDeviceSetting()" class="btn btn-secondary" style="margin-top: 20px; margin-bottom: 20px;">Добавить настройку</button>
